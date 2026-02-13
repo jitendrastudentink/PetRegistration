@@ -75,32 +75,19 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
-
-// Navigation Guard
 router.beforeEach((to, from, next) => {
-  // Update document title
   document.title = to.meta.title || 'Pet Registration'
-
-  // Check if route requires authentication
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  
-  // Check if user is logged in with both flag and token
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
   const hasToken = !!sessionStorage.getItem('accessToken')
-
   if (requiresAuth && (!isLoggedIn || !hasToken)) {
-    // Route requires auth but user is not logged in or has no token
-    // Redirect to login page
     next({
       path: '/login',
-      query: { redirect: to.fullPath } // Save the original destination
+      query: { redirect: to.fullPath }
     })
   } else if (!requiresAuth && isLoggedIn && to.path === '/login') {
-    // User is logged in but trying to access login page
-    // Redirect to dashboard
     next('/dashboard')
   } else {
-    // Allow navigation
     next()
   }
 })

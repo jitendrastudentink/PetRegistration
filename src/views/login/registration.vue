@@ -82,7 +82,7 @@
           alt="Tambaram Corporation Logo" 
           class="corporation-logo"
         />
-        <h2 class="corporation-name">Tambaram City Municipal Corporation</h2>
+        <h2 class="corporation-name">THE COMMISIONER AVADI CITY MUNICIPAL CORPORATION</h2>
       </div>
 
       <!-- Title -->
@@ -376,7 +376,8 @@ export default {
           first_name: this.form.firstName,
           last_name: this.form.lastName,
           mobileNumber: this.form.mobile,
-          emailId: this.form.email
+          emailId: this.form.email,
+          password: this.form.loginPin
         };
 
         // Call the API
