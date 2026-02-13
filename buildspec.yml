@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      # AWS CLI
+      - pip install --upgrade pip
+      - pip install --upgrade awscli
+  pre_build:
+    commands:
+      - npm install -f
+  build:
+    commands:
+      - npm run build-only
+  post_build:
+    commands:
+      - aws s3 sync ./dist $S3_BUCKET --delete --cache-control max-age=0
