@@ -707,7 +707,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed } from 'vue'
 import Swal from 'sweetalert2'
-import ApiService from '@/services/ApiService'
+import ApiService from '@/services/apiService'
 
 interface PetItem {
   id: number

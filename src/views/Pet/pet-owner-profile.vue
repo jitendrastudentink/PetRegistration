@@ -260,7 +260,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import ApiService from '@/services/ApiService'
+import ApiService from '@/services/apiService'
 
 interface Toast {
   id: number
