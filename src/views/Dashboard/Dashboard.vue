@@ -79,53 +79,46 @@
           </div>
           <div class="stats-content">
             <div class="stats-title">Total Pets</div>
-            <div class="stats-number">{{ totalPets }}</div>
+            <div class="stats-number">{{ loadingStats ? '...' : totalPets }}</div>
             <div class="stats-subtitle">Registered animals</div>
           </div>
         </div>
       </div>
 
-      <!-- Total Payments Card -->
+      <!-- Completed Pets Card -->
       <div class="col-xl-4 col-md-6">
         <div class="stats-card payments-card">
           <div class="stats-icon">
-            <!-- Rupee Icon SVG -->
+            <!-- Check Circle Icon SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 3h12"/>
-              <path d="M6 8h12"/>
-              <path d="m6 13 8.5 8"/>
-              <path d="M6 13h3"/>
-              <path d="M9 13c6.667 0 6.667-10 0-10"/>
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
             </svg>
           </div>
           <div class="stats-content">
-            <div class="stats-title">Total Payments</div>
-            <div class="stats-number">₹{{ totalPayments.toLocaleString() }}</div>
-            <div class="stats-subtitle">Revenue collected</div>
+            <div class="stats-title">Completed Pets</div>
+            <div class="stats-number">{{ loadingStats ? '...' : completedPets }}</div>
+            <div class="stats-subtitle">Fully registered</div>
           </div>
         </div>
       </div>
 
-      <!-- Total Rejected Appointments Card -->
-      <!-- <div class="col-xl-4 col-md-6">
+      <!-- Pending Pets Card -->
+      <div class="col-xl-4 col-md-6">
         <div class="stats-card rejected-card">
           <div class="stats-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
-              <line x1="16" x2="16" y1="2" y2="6"/>
-              <line x1="8" x2="8" y1="2" y2="6"/>
-              <line x1="3" x2="21" y1="10" y2="10"/>
-              <line x1="10" x2="14" y1="14" y2="18"/>
-              <line x1="14" x2="10" y1="14" y2="18"/>
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
             </svg>
           </div>
           <div class="stats-content">
-            <div class="stats-title">Rejected Appointments</div>
-            <div class="stats-number">{{ rejectedAppointments }}</div>
-            <div class="stats-subtitle">This month</div>
+            <div class="stats-title">Pending Pets</div>
+            <div class="stats-number">{{ loadingStats ? '...' : pendingPets }}</div>
+            <div class="stats-subtitle">Draft or pending</div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
 
     <div class="row g-5 gx-xl-10 mb-5 mb-xl-10">
@@ -146,8 +139,6 @@
             <p class="text-gray-600 fw-semibold fs-6 mb-4">
               <!-- This is your main dashboard. From here you can access all the features and manage your data effectively. -->
             </p>
-
-           
           </div>
         </div>
       </div>
@@ -157,15 +148,17 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import apiService from '@/services/apiService' // Adjust the import path based on your project structure
 
 const isLoading = ref(false)
 const progress = ref(0)
+const loadingStats = ref(false)
 let interval: number
 
 // Stats data
-const totalPets = ref(5)
-const totalPayments = ref(6000)
-const rejectedAppointments = ref(8)
+const totalPets = ref(0)
+const completedPets = ref(0)
+const pendingPets = ref(0)
 
 onMounted(() => {
   const isFirstVisit = !sessionStorage.getItem('dashboard_loaded')
@@ -194,15 +187,29 @@ onUnmounted(() => {
 
 // Function to fetch dashboard statistics
 async function fetchDashboardStats() {
+  loadingStats.value = true
   try {
-    // Replace with your actual API endpoint
-    // const response = await fetch('/api/dashboard/stats')
-    // const data = await response.json()
-    // totalPets.value = data.totalPets
-    // totalPayments.value = data.totalPayments
-    // rejectedAppointments.value = data.rejectedAppointments
+    const response = await apiService.getTotalPets()
+    
+    if (response.success && response.data) {
+      totalPets.value = response.data.total_pets || 0
+      completedPets.value = response.data.completed_pets || 0
+      pendingPets.value = response.data.pending_pets || 0
+    } else {
+      console.error('Failed to fetch pet statistics:', response.message)
+      // Set default values on error
+      totalPets.value = 0
+      completedPets.value = 0
+      pendingPets.value = 0
+    }
   } catch (error) {
     console.error('Error fetching dashboard stats:', error)
+    // Set default values on error
+    totalPets.value = 0
+    completedPets.value = 0
+    pendingPets.value = 0
+  } finally {
+    loadingStats.value = false
   }
 }
 </script>
@@ -431,14 +438,14 @@ async function fetchDashboardStats() {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
-/* Rejected Card - Red Theme */
+/* Rejected Card - Orange/Yellow Theme */
 .rejected-card {
-  --card-color-start: #ef4444;
-  --card-color-end: #dc2626;
+  --card-color-start: #f59e0b;
+  --card-color-end: #d97706;
 }
 
 .rejected-card .stats-icon {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
 }
 
 .stats-icon {
