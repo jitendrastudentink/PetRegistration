@@ -74,7 +74,7 @@
             <!--end:Menu item-->
             
             <!--begin:Menu item - Pet Owner Profile-->
-            <div class="menu-item">
+            <!-- <div class="menu-item">
               <router-link class="menu-link" to="/pet-owner-profile">
                 <span class="menu-icon">
                   <i class="ki-duotone ki-profile-user fs-2">
@@ -86,7 +86,7 @@
                 </span>
                 <span class="menu-title">My Profile</span>
               </router-link>
-            </div>
+            </div> -->
             <!--end:Menu item-->
             
           </div>

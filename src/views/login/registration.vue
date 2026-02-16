@@ -100,7 +100,7 @@
             <div class="form-row three-cols">
               <div class="form-group">
                 <label class="form-label">Title</label>
-                <select v-model="form.title" class="form-control" >
+                <select v-model="form.title" class="form-control">
                   <option value="" disabled>Title</option>
                   <option value="Mr">Mr</option>
                   <option value="Mrs">Mrs</option>
@@ -110,24 +110,24 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label">First Name</label>
+                <label class="form-label">First Name <span class="required">*</span></label>
                 <input
                   v-model="form.firstName"
                   type="text"
                   class="form-control"
                   placeholder="First Name"
-                  
+                  required
                 />
               </div>
 
               <div class="form-group">
-                <label class="form-label">Last Name</label>
+                <label class="form-label">Last Name <span class="required">*</span></label>
                 <input
                   v-model="form.lastName"
                   type="text"
                   class="form-control"
                   placeholder="Last Name"
-                  
+                  required
                 />
               </div>
             </div>
@@ -135,7 +135,7 @@
             <!-- Row 2: Mobile Number -->
             <div class="form-row">
               <div class="form-group full-width">
-                <label class="form-label">Mobile Number</label>
+                <label class="form-label">Mobile Number <span class="required">*</span></label>
                 <input
                   v-model="form.mobile"
                   type="tel"
@@ -143,7 +143,7 @@
                   placeholder="Mobile Number"
                   pattern="[0-9]{10}"
                   maxlength="10"
-                  
+                  required
                 />
               </div>
             </div>
@@ -157,7 +157,6 @@
                   type="email"
                   class="form-control"
                   placeholder="Email"
-                  
                 />
               </div>
             </div>
@@ -169,7 +168,7 @@
             <div class="form-row three-cols">
               <div class="form-group">
                 <label class="form-label">State</label>
-                <select v-model="form.state" class="form-control" >
+                <select v-model="form.state" class="form-control">
                   <option value="" disabled>Tamilnadu / தமிழ்நாடு</option>
                   <option value="Tamilnadu">Tamilnadu</option>
                 </select>
@@ -177,7 +176,7 @@
 
               <div class="form-group">
                 <label class="form-label">Zone</label>
-                <select v-model="form.zone" class="form-control" >
+                <select v-model="form.zone" class="form-control">
                   <option value="" disabled>Zone</option>
                   <option value="Zone1">Zone 1</option>
                   <option value="Zone2">Zone 2</option>
@@ -187,7 +186,7 @@
 
               <div class="form-group">
                 <label class="form-label">Ward</label>
-                <select v-model="form.ward" class="form-control" >
+                <select v-model="form.ward" class="form-control">
                   <option value="" disabled>Please select zone</option>
                 </select>
               </div>
@@ -203,7 +202,7 @@
             <div class="form-row three-cols">
               <div class="form-group">
                 <label class="form-label">Street Name</label>
-                <select v-model="form.streetName" class="form-control" >
+                <select v-model="form.streetName" class="form-control">
                   <option value="" disabled>Please select zone and ward</option>
                 </select>
               </div>
@@ -215,7 +214,6 @@
                   type="text"
                   class="form-control"
                   placeholder="Door No"
-                  
                 />
               </div>
 
@@ -241,40 +239,39 @@
                   placeholder="PIN Code"
                   pattern="[0-9]{6}"
                   maxlength="6"
-                  
                 />
               </div>
             </div>
 
-            <!-- PIN Generation Section -->
-            <div class="section-title">Pin Generate</div>
+            <!-- OTP Generation Section -->
+            <div class="section-title">OTP Verification</div>
 
-            <!-- Row 7: Generate Login PIN and Confirm PIN -->
+            <!-- Row 7: Manual OTP Entry (6 digits) -->
             <div class="form-row two-cols">
               <div class="form-group">
-                <label class="form-label">Generate Login PIN</label>
+                <label class="form-label">Enter 6-Digit OTP <span class="required">*</span></label>
                 <input
-                  v-model="form.loginPin"
-                  type="password"
+                  v-model="form.otp"
+                  type="text"
                   class="form-control"
-                  placeholder="PIN"
-                  pattern="[0-9]{4,6}"
+                  placeholder="Enter OTP"
+                  pattern="[0-9]{6}"
                   maxlength="6"
-                  
+                  required
                 />
-                <small class="form-hint">4-6 Digit</small>
+                <small class="form-hint">Enter 6-digit OTP</small>
               </div>
 
               <div class="form-group">
-                <label class="form-label">Confirm PIN</label>
+                <label class="form-label">Confirm OTP <span class="required">*</span></label>
                 <input
-                  v-model="form.confirmPin"
-                  type="password"
+                  v-model="form.confirmOtp"
+                  type="text"
                   class="form-control"
-                  placeholder="Confirm PIN"
-                  pattern="[0-9]{4,6}"
+                  placeholder="Confirm OTP"
+                  pattern="[0-9]{6}"
                   maxlength="6"
-                  
+                  required
                 />
               </div>
             </div>
@@ -331,8 +328,8 @@ export default {
         doorNo: '',
         locality: '',
         pinCode: '',
-        loginPin: '',
-        confirmPin: ''
+        otp: '',
+        confirmOtp: ''
       },
       loading: false,
       error: '',
@@ -350,21 +347,21 @@ export default {
         return;
       }
 
-      // Validate PIN code
-      if (this.form.pinCode.length !== 6) {
+      // Validate PIN code if provided
+      if (this.form.pinCode && this.form.pinCode.length !== 6) {
         this.error = 'Please enter a valid 6-digit PIN code';
         return;
       }
 
-      // Validate PIN match
-      if (this.form.loginPin !== this.form.confirmPin) {
-        this.error = 'Login PIN and Confirm PIN do not match';
+      // Validate OTP
+      if (this.form.otp.length !== 6) {
+        this.error = 'Please enter a valid 6-digit OTP';
         return;
       }
 
-      // Validate PIN length
-      if (this.form.loginPin.length < 4 || this.form.loginPin.length > 6) {
-        this.error = 'Login PIN must be 4-6 digits';
+      // Validate OTP match
+      if (this.form.otp !== this.form.confirmOtp) {
+        this.error = 'OTP and Confirm OTP do not match';
         return;
       }
 
@@ -375,17 +372,32 @@ export default {
         const ownerData = {
           first_name: this.form.firstName,
           last_name: this.form.lastName,
+          title: this.form.title,
           mobileNumber: this.form.mobile,
           emailId: this.form.email,
-          password: this.form.loginPin
+          state: this.form.state,
+          zone: this.form.zone,
+          ward: this.form.ward,
+          streetName: this.form.streetName,
+          doorNo: this.form.doorNo,
+          locality: this.form.locality,
+          pinCode: this.form.pinCode,
+          otp: this.form.otp
         };
+
+        // Remove empty fields
+        Object.keys(ownerData).forEach(key => {
+          if (ownerData[key] === '' || ownerData[key] === null) {
+            delete ownerData[key];
+          }
+        });
 
         // Call the API
         const response = await ApiService.registerPetOwner(ownerData);
         
         console.log('Registration response:', response);
         
-        this.success = 'Registration successful! Redirecting to login...';
+        this.success = 'Registration successful! Login OTP sent to your mobile. Redirecting to login...';
         
         // Redirect to login after 2 seconds
         setTimeout(() => {
@@ -408,6 +420,11 @@ export default {
 <style scoped>
 * {
   box-sizing: border-box;
+}
+
+.required {
+  color: #e74c3c;
+  margin-left: 2px;
 }
 
 .pet-registration-wrapper {
