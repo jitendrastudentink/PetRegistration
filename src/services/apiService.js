@@ -87,7 +87,7 @@ class ApiService {
   }
   async sendOTP(contactNumber) {
     try {
-      const response = await this.post('/petapi/send-otp', {
+      const response = await this.post('/send-otp', {
         contact_number: contactNumber,
       });
       return response;
@@ -98,7 +98,7 @@ class ApiService {
   }
   async login(contactNumber, otp) {
     try {
-      const response = await this.post('/petapi/login', {
+      const response = await this.post('/login', {
         contact_number: contactNumber,
         otp: otp,
       });
@@ -118,7 +118,7 @@ class ApiService {
   }
   async logout() {
     try {
-      await this.post('/petapi/logout', {}); 
+      await this.post('/logout', {}); 
       sessionStorage.removeItem('accessToken');
       sessionStorage.removeItem('tokenType');
       sessionStorage.removeItem('userData');
@@ -147,7 +147,7 @@ class ApiService {
 
   async registerPet(petName) {
     try {
-      const response = await this.post('/petapi/register-pet', {
+      const response = await this.post('/register-pet', {
         petName: petName,
       });
       return response;
@@ -159,7 +159,7 @@ class ApiService {
 
   async viewPetRegistration() {
     try {
-      const response = await this.get('/petapi/view-registration');
+      const response = await this.get('/view-registration');
       return response;
     } catch (error) {
       console.error('Failed to fetch pet registration:', error);
@@ -168,7 +168,7 @@ class ApiService {
   }
   async getOwnerProfile() {
     try {
-      const response = await this.get('/petapi/owner-profile');
+      const response = await this.get('/owner-profile');
       return response;
     } catch (error) {
       console.error('Failed to fetch owner profile:', error);
@@ -177,7 +177,7 @@ class ApiService {
   }
   async updateOwnerProfile(profileData) {
     try {
-      const response = await this.put('/petapi/owner-profile', profileData);
+      const response = await this.put('/owner-profile', profileData);
       return response;
     } catch (error) {
       console.error('Failed to update owner profile:', error);
@@ -186,7 +186,7 @@ class ApiService {
   }
   async getPetDetailsRecord() {
     try {
-      const response = await this.get('/petapi/pet-details-record');
+      const response = await this.get('/pet-details-record');
       return response;
     } catch (error) {
       console.error('Failed to fetch pet details records:', error);
@@ -195,7 +195,7 @@ class ApiService {
   }
   async getPetRegisterRedirect() {
     try {
-      const response = await this.get('/petapi/pet-register-redirect');
+      const response = await this.get('/pet-register-redirect');
       return response;
     } catch (error) {
       console.error('Failed to fetch pet registration redirect URL:', error);
@@ -204,7 +204,7 @@ class ApiService {
   }
   async registerPetOwner(ownerData) {
     try {
-      const response = await this.post('/petapi/register-pet-owner', ownerData);
+      const response = await this.post('/register-pet-owner', ownerData);
       return response;
     } catch (error) {
       console.error('Failed to register pet owner:', error);
@@ -213,7 +213,7 @@ class ApiService {
   }
   async getTotalPets() {
     try {
-      const response = await this.get('/petapi/total-pets');
+      const response = await this.get('/total-pets');
       return response;
     } catch (error) {
       console.error('Failed to fetch total pets:', error);
