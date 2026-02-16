@@ -657,7 +657,7 @@ const handleSubmit = async () => {
     })
 
     // Send to backend API
-    const response = await fetch('http://localhost:9000/petapi/pet-register', {
+    const response = await fetch('https://staging.octopod.co.in/petapi/pet-register', {
       method: 'POST',
       body: submitData
     })
