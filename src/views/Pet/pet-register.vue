@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex flex-column flex-column-fluid">
     <div id="kt_app_content" class="app-content flex-column-fluid">
-      <div id="kt_app_content_container" class="app-container container-xxl">
+      <div id="kt_app_content_container" class="app-container container-fluid">
         
         <!-- Loading State -->
         <div v-if="isLoading" class="text-center py-10">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
-          <p class="mt-3 text-muted">Loading your details...</p>
+          <p class="mt-3 text-muted">Loading registration form...</p>
         </div>
 
         <!-- Error State -->
@@ -26,39 +26,31 @@
           </div>
         </div>
 
-        <!-- Success - Iframe Display -->
-        <div v-else-if="redirectUrl" class="card">
+        <!-- Iframe Container -->
+        <div v-else-if="iframeUrl" class="card">
           <div class="card-header">
             <h3 class="card-title">Pet Registration Form</h3>
             <div class="card-toolbar">
-              <span v-if="isExisting" class="badge badge-light-info me-2">
-                <i class="fas fa-history me-1"></i>
-                Existing Registration
-              </span>
-              <span class="badge badge-light-success">
-                <i class="fas fa-user-check me-1"></i>
-                {{ userData?.ownerName || 'User' }}
-              </span>
+              <button @click="refreshIframe" class="btn btn-sm btn-light-primary">
+                <i class="ki-duotone ki-arrows-circle fs-3">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </i>
+                Refresh
+              </button>
             </div>
           </div>
           <div class="card-body p-0">
-            <!-- Info Alert for Existing Users -->
-            <div v-if="isExisting" class="alert alert-info m-5 d-flex align-items-center">
-              <i class="fas fa-info-circle fs-2x me-3"></i>
-              <div>
-                <h5 class="mb-1">Welcome Back!</h5>
-                <p class="mb-0">We found your previous registration. Your information has been pre-filled.</p>
-              </div>
+            <div class="iframe-container">
+              <iframe
+                ref="registrationIframe"
+                :src="iframeUrl"
+                class="registration-iframe"
+                frameborder="0"
+                allow="camera; microphone; geolocation"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
+              ></iframe>
             </div>
-            
-            <iframe 
-              ref="formIframe"
-              :src="redirectUrl" 
-              class="w-100"
-              style="min-height: 800px; border: none;"
-              title="Pet Registration Form"
-              @load="onIframeLoad"
-            ></iframe>
           </div>
         </div>
 
@@ -68,46 +60,89 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import apiService from '@/services/apiService'
 
 const isLoading = ref(true)
 const error = ref('')
-const redirectUrl = ref('')
-const userData = ref<any>(null)
-const isExisting = ref(false)
-const formIframe = ref<HTMLIFrameElement | null>(null)
+const iframeUrl = ref('')
+const registrationIframe = ref<HTMLIFrameElement | null>(null)
 
 const fetchRedirectUrl = async () => {
   isLoading.value = true
   error.value = ''
+  iframeUrl.value = ''
   
   try {
     const response = await apiService.getPetRegisterRedirect()
     
     if (response.success && response.data.redirect_url) {
-      redirectUrl.value = response.data.redirect_url
-      userData.value = response.data.user_data
-      isExisting.value = response.data.is_existing || false
-      
-      console.log('User data pre-filled:', userData.value)
-      console.log('Is existing registration:', isExisting.value)
+      // Set iframe URL instead of redirecting
+      iframeUrl.value = response.data.redirect_url
+      isLoading.value = false
     } else {
       error.value = response.message || 'Failed to get registration URL'
+      isLoading.value = false
     }
   } catch (err: any) {
     console.error('Failed to fetch redirect URL:', err)
     error.value = err.message || 'An error occurred while loading the registration form'
-  } finally {
     isLoading.value = false
   }
 }
 
-const onIframeLoad = () => {
-  console.log('Form loaded successfully')
+const refreshIframe = () => {
+  if (registrationIframe.value) {
+    registrationIframe.value.src = registrationIframe.value.src
+  }
+}
+
+// Listen for messages from iframe (optional - for form submission notifications)
+const handleIframeMessage = (event: MessageEvent) => {
+  // Add your allowed origins
+  const allowedOrigins = ['http://localhost:9000']
+  
+  if (!allowedOrigins.includes(event.origin)) {
+    return
+  }
+  
+  // Handle messages from iframe
+  if (event.data.type === 'formSubmitted') {
+    console.log('Form submitted successfully')
+    // You can show a success message or redirect here
+  }
 }
 
 onMounted(() => {
   fetchRedirectUrl()
+  window.addEventListener('message', handleIframeMessage)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('message', handleIframeMessage)
 })
 </script>
+
+<style scoped>
+.iframe-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 200px);
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.registration-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .iframe-container {
+    height: calc(100vh - 150px);
+    min-height: 500px;
+  }
+}
+</style>

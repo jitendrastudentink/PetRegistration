@@ -32,6 +32,40 @@
         <p>Manage your pet registrations and profile</p>
       </div>
 
+      <!-- Pet Statistics Card -->
+      <div v-if="petStats" class="pet-stats-card">
+        <h3>Your Pet Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-item total">
+            <div class="stat-icon">🐾</div>
+            <div class="stat-details">
+              <span class="stat-value">{{ petStats.total_pets }}</span>
+              <span class="stat-label">Total Pets cccc</span>
+            </div>
+          </div>
+          <div class="stat-item completed">
+            <div class="stat-icon">✅</div>
+            <div class="stat-details">
+              <span class="stat-value">{{ petStats.completed_pets }}</span>
+              <span class="stat-label">Completed</span>
+            </div>
+          </div>
+          <div class="stat-item pending">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-details">
+              <span class="stat-value">{{ petStats.pending_pets }}</span>
+              <span class="stat-label">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div v-if="loadingStats" class="loading-stats">
+        <div class="spinner"></div>
+        <p>Loading pet statistics...</p>
+      </div>
+
       <!-- Quick Actions -->
       <div class="quick-actions">
         <div class="action-card" @click="goToRegister">
@@ -91,6 +125,7 @@
 
 <script>
 import { logout, getCurrentUserMobile, getCurrentUser } from '@/utils/auth';
+import ApiService from '@/services/ApiService';
 
 export default {
   name: 'Dashboard',
@@ -100,11 +135,14 @@ export default {
       userName: '',
       userDetails: {},
       showLogoutModal: false,
-      loggingOut: false
+      loggingOut: false,
+      petStats: null,
+      loadingStats: false
     };
   },
   mounted() {
     this.loadUserData();
+    this.loadPetStatistics();
   },
   methods: {
     loadUserData() {
@@ -119,6 +157,26 @@ export default {
       } else {
         this.userName = 'User';
         this.userDetails = {};
+      }
+    },
+    
+    async loadPetStatistics() {
+      this.loadingStats = true;
+      try {
+        const response = await ApiService.getTotalPets();
+        if (response.success) {
+          this.petStats = response.data;
+        }
+      } catch (error) {
+        console.error('Failed to load pet statistics:', error);
+        // Set default values on error
+        this.petStats = {
+          total_pets: 0,
+          completed_pets: 0,
+          pending_pets: 0
+        };
+      } finally {
+        this.loadingStats = false;
       }
     },
     
@@ -267,6 +325,94 @@ export default {
 }
 
 .welcome-section p {
+  color: #7f8c8d;
+  font-size: 16px;
+}
+
+/* Pet Statistics Card */
+.pet-stats-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.pet-stats-card h3 {
+  color: white;
+  font-size: 22px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-item:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.stat-icon {
+  font-size: 36px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.loading-stats {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 40px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ecf0f1;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-stats p {
   color: #7f8c8d;
   font-size: 16px;
 }
@@ -433,6 +579,10 @@ export default {
   }
 
   .quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
     grid-template-columns: 1fr;
   }
 }

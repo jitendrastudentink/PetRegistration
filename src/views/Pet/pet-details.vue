@@ -76,10 +76,10 @@
               <span class="card-label fw-bold text-gray-800">Pet Details List</span>
             </h3>
             <div class="card-toolbar">
-              <button class="btn btn-sm btn-primary me-2" @click="openSlider()">
+              <!-- <button class="btn btn-sm btn-primary me-2" @click="openSlider()">
                 <i class="ki-duotone ki-plus fs-2"></i>
                 <span class="d-none d-sm-inline">Add Pet</span>
-              </button>
+              </button> -->
               <button class="btn btn-sm btn-light-primary" @click="fetchData">
                 <i class="ki-duotone ki-arrows-circle fs-2">
                   <span class="path1"></span>
@@ -154,7 +154,7 @@
                           <span class="path3"></span>
                         </i>
                       </button>
-                      <button 
+                      <!-- <button 
                         class="btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1"
                         @click="editItem(item)"
                         title="Edit"
@@ -163,7 +163,7 @@
                           <span class="path1"></span>
                           <span class="path2"></span>
                         </i> 
-                      </button>
+                      </button> -->
                       <!-- <button 
                         class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
                         @click="deleteItem(item.id)"

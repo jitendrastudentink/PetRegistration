@@ -211,6 +211,15 @@ class ApiService {
       throw error;
     }
   }
+  async getTotalPets() {
+    try {
+      const response = await this.get('/petapi/total-pets');
+      return response;
+    } catch (error) {
+      console.error('Failed to fetch total pets:', error);
+      throw error;
+    }
+  }
 }
 
 
