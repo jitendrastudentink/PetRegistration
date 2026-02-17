@@ -187,7 +187,10 @@
               <div class="form-group">
                 <label class="form-label">Ward</label>
                 <select v-model="form.ward" class="form-control">
-                  <option value="" disabled>Please select zone</option>
+                  <option value="" disabled>Please select Ward</option>
+                   <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
                 </select>
               </div>
             </div>
@@ -204,6 +207,8 @@
                 <label class="form-label">Street Name</label>
                 <select v-model="form.streetName" class="form-control">
                   <option value="" disabled>Please select zone and ward</option>
+                      <option value="">138/52b varadharajan street</option>
+                      <option value="">242 vinayagar kovil street mellanathur thiruvallur </option>
                 </select>
               </div>
 
@@ -244,7 +249,7 @@
             </div>
 
             <!-- OTP Generation Section -->
-            <div class="section-title">OTP Verification</div>
+            <div class="section-title">Pin Generate</div>
 
             <!-- Row 7: Manual OTP Entry (6 digits) -->
             <div class="form-row two-cols">
