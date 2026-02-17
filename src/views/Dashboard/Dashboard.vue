@@ -78,9 +78,9 @@
             </svg>
           </div>
           <div class="stats-content">
-            <div class="stats-title">Total Pets</div>
+            <div class="stats-title">Total Register Pets</div>
             <div class="stats-number">{{ loadingStats ? '...' : totalPets }}</div>
-            <div class="stats-subtitle">Registered animals</div>
+            <div class="stats-subtitle"></div>
           </div>
         </div>
       </div>
@@ -96,9 +96,9 @@
             </svg>
           </div>
           <div class="stats-content">
-            <div class="stats-title">Completed Pets</div>
+            <div class="stats-title">Register Pets</div>
             <div class="stats-number">{{ loadingStats ? '...' : completedPets }}</div>
-            <div class="stats-subtitle">Fully registered</div>
+            <div class="stats-subtitle"></div>
           </div>
         </div>
       </div>
@@ -113,9 +113,9 @@
             </svg>
           </div>
           <div class="stats-content">
-            <div class="stats-title">Pending Pets</div>
+            <div class="stats-title">Pending Register Pets</div>
             <div class="stats-number">{{ loadingStats ? '...' : pendingPets }}</div>
-            <div class="stats-subtitle">Draft or pending</div>
+            <div class="stats-subtitle"></div>
           </div>
         </div>
       </div>
