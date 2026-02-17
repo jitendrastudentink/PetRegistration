@@ -5,7 +5,7 @@
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
       <!--begin::Logo image-->
       <router-link to="/dashboard">
-        <img alt="Logo" src="/assets/media/logos/default-dark.svg" class="h-25px app-sidebar-logo-default" />
+        <img alt="Logo" src="/public/studentink-icon.png" class="h-25px app-sidebar-logo-default" />
         <img alt="Logo" src="/public/studentink-icon.png" class="h-30px app-sidebar-logo-minimize" />
       </router-link>
     
@@ -99,7 +99,7 @@
     <!--end::sidebar menu-->
     
     <!--begin::Footer-->
-    <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer">
+    <!-- <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer">
       <a href="https://preview.keenthemes.com/html/metronic/docs" class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" title="200+ in-house components and 3rd-party plugins">
         <span class="btn-label">User Name</span>
         <i class="ki-duotone ki-document btn-icon fs-2 m-0">
@@ -107,7 +107,7 @@
           <span class="path2"></span>
         </i>
       </a>
-    </div>
+    </div> -->
     <!--end::Footer-->
   </div>
   <!--end::Sidebar-->
