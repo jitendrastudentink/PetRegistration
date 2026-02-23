@@ -69,11 +69,11 @@
     <div class="registration-card">
       <!-- Logo -->
       <div class="logo-section">
-        <!-- <img 
+        <img 
           src="/Tambaram_Corporation_new_logo.jpg" 
           alt="Tambaram Corporation Logo" 
           class="corporation-logo"
-        /> -->
+        />
         <h2 class="corporation-name">THE COMMISIONER AVADI CITY MUNICIPAL CORPORATION</h2>
       </div>
 

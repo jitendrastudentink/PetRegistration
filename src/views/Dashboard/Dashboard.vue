@@ -2,7 +2,11 @@
   <!-- ================= LOADER OVERLAY ================= -->
   <div v-if="isLoading" class="loader-overlay">
     <div class="loader-box text-center">
-      <div class="spinner-big"></div>
+      <img 
+        src="/public/Tambaram_Corporation_new_logo.jpg" 
+        alt="Loading..." 
+        class="rotating-spinner"
+      >
       <div class="loading-text mt-4">
         Loading... {{ progress }}%
       </div>
@@ -231,13 +235,10 @@ async function fetchDashboardStats() {
   padding: 40px 60px;
 }
 
-/* ===== BIG SPINNER ===== */
-.spinner-big {
-  width: 70px;
-  height: 70px;
-  border: 6px solid #e4e6ef;
-  border-top: 6px solid #3699ff;
-  border-radius: 50%;
+/* ===== ROTATING IMAGE SPINNER ===== */
+.rotating-spinner {
+  width: 80px;
+  height: 80px;
   animation: spin 1s linear infinite;
 }
 
