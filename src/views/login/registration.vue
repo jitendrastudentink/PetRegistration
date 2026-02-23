@@ -132,9 +132,9 @@
               </div>
             </div>
 
-            <!-- Row 2: Mobile Number -->
-            <div class="form-row">
-              <div class="form-group full-width">
+            <!-- Row 2: Mobile Number, Property Tax Number -->
+            <div class="form-row two-cols">
+              <div class="form-group">
                 <label class="form-label">Mobile Number <span class="required">*</span></label>
                 <input
                   v-model="form.mobile"
@@ -146,9 +146,33 @@
                   required
                 />
               </div>
+
+              <div class="form-group">
+                <label class="form-label">Property Tax Number</label>
+                <input
+                  v-model="form.propertyTaxNumber"
+                  type="text"
+                  class="form-control"
+                  placeholder="Property Tax Number"
+                />
+              </div>
             </div>
 
-            <!-- Row 3: Email -->
+            <!-- Row 3: Pet Owner Category -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Pet Owner Category</label>
+                <select v-model="form.petOwnerCategory" class="form-control">
+                  <option value="" disabled>Select Category</option>
+                  <option value="Individual">Individual</option>
+                  <option value="Family">Family</option>
+                  <option value="Organization">Organization</option>
+                  <option value="Breeder">Breeder</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Row 4: Email -->
             <div class="form-row">
               <div class="form-group full-width">
                 <label class="form-label">Email</label>
@@ -194,6 +218,7 @@
                 </select>
               </div>
             </div>
+
           </div>
 
           <!-- Right Column -->
@@ -201,8 +226,8 @@
             <!-- Continue Address Section -->
             <div class="section-title-spacer"></div>
 
-            <!-- Row 5: Street Name, Door No, Locality -->
-            <div class="form-row three-cols">
+            <!-- Row 5: Street Name, Door No, Locality, PIN Code -->
+            <div class="form-row four-cols">
               <div class="form-group">
                 <label class="form-label">Street Name</label>
                 <select v-model="form.streetName" class="form-control">
@@ -231,11 +256,8 @@
                   placeholder="Locality / Building Name"
                 />
               </div>
-            </div>
 
-            <!-- Row 6: PIN Code -->
-            <div class="form-row">
-              <div class="form-group full-width">
+              <div class="form-group">
                 <label class="form-label">PIN Code</label>
                 <input
                   v-model="form.pinCode"
@@ -248,10 +270,69 @@
               </div>
             </div>
 
+            <!-- Co-Owner Section -->
+            <div class="section-title">Co-Owner Details</div>
+
+            <!-- Co-Owner 1 Name -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Co - Owner 1 (Name)</label>
+                <input
+                  v-model="form.coOwner1FirstName"
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                />
+              </div>
+            </div>
+
+            <!-- Co-Owner 1 Mobile -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Co - Owner 1 (Mobile Number) <span class="optional">(Optional)</span></label>
+                <input
+                  v-model="form.coOwner1Mobile"
+                  type="tel"
+                  class="form-control"
+                  placeholder="Mobile Number"
+                  pattern="[0-9]{10}"
+                  maxlength="10"
+                />
+              </div>
+            </div>
+
+            <!-- Co-Owner 2 Name -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Co - Owner 2 (Name)</label>
+                <input
+                  v-model="form.coOwner2FirstName"
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                />
+              </div>
+            </div>
+
+            <!-- Co-Owner 2 Mobile -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Co - Owner 2 (Mobile Number) <span class="optional">(Optional)</span></label>
+                <input
+                  v-model="form.coOwner2Mobile"
+                  type="tel"
+                  class="form-control"
+                  placeholder="Mobile Number"
+                  pattern="[0-9]{10}"
+                  maxlength="10"
+                />
+              </div>
+            </div>
+
             <!-- OTP Generation Section -->
             <div class="section-title">Pin Generate</div>
 
-            <!-- Row 7: Manual OTP Entry (6 digits) -->
+            <!-- Row 6: Manual OTP Entry (6 digits) -->
             <div class="form-row two-cols">
               <div class="form-group">
                 <label class="form-label">Enter 6-Digit OTP <span class="required">*</span></label>
@@ -325,6 +406,8 @@ export default {
         firstName: '',
         lastName: '',
         mobile: '',
+        propertyTaxNumber: '',
+        petOwnerCategory: '',
         email: '',
         state: '',
         zone: '',
@@ -333,6 +416,12 @@ export default {
         doorNo: '',
         locality: '',
         pinCode: '',
+        coOwner1FirstName: '',
+        coOwner1LastName: '',
+        coOwner1Mobile: '',
+        coOwner2FirstName: '',
+        coOwner2LastName: '',
+        coOwner2Mobile: '',
         otp: '',
         confirmOtp: ''
       },
@@ -379,6 +468,8 @@ export default {
           last_name: this.form.lastName,
           title: this.form.title,
           mobileNumber: this.form.mobile,
+          propertyTaxNumber: this.form.propertyTaxNumber,
+          petOwnerCategory: this.form.petOwnerCategory,
           emailId: this.form.email,
           state: this.form.state,
           zone: this.form.zone,
@@ -387,6 +478,12 @@ export default {
           doorNo: this.form.doorNo,
           locality: this.form.locality,
           pinCode: this.form.pinCode,
+          coOwner1FirstName: this.form.coOwner1FirstName,
+          coOwner1LastName: this.form.coOwner1LastName,
+          coOwner1Mobile: this.form.coOwner1Mobile,
+          coOwner2FirstName: this.form.coOwner2FirstName,
+          coOwner2LastName: this.form.coOwner2LastName,
+          coOwner2Mobile: this.form.coOwner2Mobile,
           otp: this.form.otp
         };
 
@@ -429,6 +526,13 @@ export default {
 
 .required {
   color: #e74c3c;
+  margin-left: 2px;
+}
+
+.optional {
+  color: #999;
+  font-size: 11px;
+  font-weight: 400;
   margin-left: 2px;
 }
 
@@ -721,6 +825,10 @@ export default {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.form-row.four-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -906,11 +1014,16 @@ select.form-control {
     width: 45px;
     height: 45px;
   }
+
+  .form-row.four-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
   .form-row.three-cols,
-  .form-row.two-cols {
+  .form-row.two-cols,
+  .form-row.four-cols {
     grid-template-columns: 1fr;
   }
 

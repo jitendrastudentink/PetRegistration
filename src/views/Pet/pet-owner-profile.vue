@@ -190,6 +190,19 @@
                       :readonly="!isEditing"
                     />
                   </div>
+
+                  <!-- Property Tax Number -->
+                  <div class="col-md-4 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">Property Tax Number</label>
+                    <input 
+                      v-model="formData.propertyTaxNumber" 
+                      type="text" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter property tax number"
+                      :readonly="!isEditing"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -287,6 +300,90 @@
                 </div>
               </div>
 
+              <!-- Co-Owner Details -->
+              <div class="separator my-6"></div>
+
+              <div class="mb-6">
+                <div class="d-flex align-items-center mb-4">
+                  <i class="ki-duotone ki-people fs-2 me-2 text-primary">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                    <span class="path5"></span>
+                  </i>
+                  <h4 class="text-gray-800 mb-0">Co-Owner Details</h4>
+                </div>
+
+                <div class="row">
+                  <!-- Co-Owner 1 Name -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 1 (Name)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner1Name" 
+                      type="text" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 1 name"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+
+                  <!-- Co-Owner 1 Mobile -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 1 (Mobile Number)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner1Mobile" 
+                      type="tel" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 1 mobile number"
+                      maxlength="10"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+
+                  <!-- Co-Owner 2 Name -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 2 (Name)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner2Name" 
+                      type="text" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 2 name"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+
+                  <!-- Co-Owner 2 Mobile -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 2 (Mobile Number)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner2Mobile" 
+                      type="tel" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 2 mobile number"
+                      maxlength="10"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <!-- Bottom Buttons (when editing) -->
               <div v-if="isEditing" class="d-flex justify-content-center gap-3 mt-8">
                 <button 
@@ -366,12 +463,17 @@ const formData = reactive({
   ownerName: '',
   mobileNumber: '',
   emailId: '',
+  propertyTaxNumber: '',
   zone: '',
   ward: '',
   streetName: '',
   doorNo: '',
   locality: '',
-  pinCode: ''
+  pinCode: '',
+  coOwner1Name: '',
+  coOwner1Mobile: '',
+  coOwner2Name: '',
+  coOwner2Mobile: ''
 })
 
 // Backup for cancel
@@ -380,12 +482,17 @@ const originalData = reactive({
   ownerName: '',
   mobileNumber: '',
   emailId: '',
+  propertyTaxNumber: '',
   zone: '',
   ward: '',
   streetName: '',
   doorNo: '',
   locality: '',
-  pinCode: ''
+  pinCode: '',
+  coOwner1Name: '',
+  coOwner1Mobile: '',
+  coOwner2Name: '',
+  coOwner2Mobile: ''
 })
 
 // State
@@ -399,7 +506,6 @@ let toastIdCounter = 0
 const showToast = (message: string, type: 'success' | 'error' = 'success') => {
   const id = ++toastIdCounter
   toasts.value.push({ id, message, type })
-  
   setTimeout(() => {
     removeToast(id)
   }, 5000)
@@ -416,7 +522,6 @@ const removeToast = (id: number) => {
 const enableEdit = () => {
   console.log('🔓 Enabling edit mode...')
   isEditing.value = true
-  // Backup original data
   Object.assign(originalData, formData)
   showToast('Edit mode enabled. Make your changes and click Save.', 'success')
 }
@@ -424,7 +529,6 @@ const enableEdit = () => {
 // Cancel edit
 const cancelEdit = () => {
   console.log('❌ Canceling edit...')
-  // Restore original data
   Object.assign(formData, originalData)
   isEditing.value = false
   showToast('Changes cancelled', 'success')
@@ -440,21 +544,23 @@ const fetchOwnerProfile = async () => {
     if (response.success && response.data) {
       console.log('✅ Profile data received:', response.data)
       
-      // Populate form
       formData.title = response.data.title || ''
       formData.ownerName = response.data.ownerName || ''
       formData.mobileNumber = response.data.mobileNumber || ''
       formData.emailId = response.data.emailId || ''
+      formData.propertyTaxNumber = response.data.propertyTaxNumber || ''
       formData.zone = response.data.zone || ''
       formData.ward = response.data.ward || ''
       formData.streetName = response.data.streetName || ''
       formData.doorNo = response.data.doorNo || ''
       formData.locality = response.data.locality || ''
       formData.pinCode = response.data.pinCode || ''
+      formData.coOwner1Name = response.data.coOwner1Name || ''
+      formData.coOwner1Mobile = response.data.coOwner1Mobile || ''
+      formData.coOwner2Name = response.data.coOwner2Name || ''
+      formData.coOwner2Mobile = response.data.coOwner2Mobile || ''
       
-      // Backup
       Object.assign(originalData, formData)
-      
       console.log('✅ Form populated:', formData)
     } else {
       showToast(response.message || 'No profile data found', 'error')
@@ -471,7 +577,6 @@ const fetchOwnerProfile = async () => {
 const saveProfile = async () => {
   console.log('💾 Saving profile...', formData)
   
-  // Validation
   if (!formData.ownerName || formData.ownerName.trim() === '') {
     showToast('Owner name is required', 'error')
     return
@@ -502,6 +607,17 @@ const saveProfile = async () => {
     return
   }
 
+  // Validate co-owner mobiles if provided
+  if (formData.coOwner1Mobile && formData.coOwner1Mobile.length > 0 && formData.coOwner1Mobile.length !== 10) {
+    showToast('Co-Owner 1 mobile number must be 10 digits', 'error')
+    return
+  }
+
+  if (formData.coOwner2Mobile && formData.coOwner2Mobile.length > 0 && formData.coOwner2Mobile.length !== 10) {
+    showToast('Co-Owner 2 mobile number must be 10 digits', 'error')
+    return
+  }
+
   submitting.value = true
   
   try {
@@ -512,14 +628,8 @@ const saveProfile = async () => {
     
     if (response.success) {
       showToast('✅ Profile updated successfully!', 'success')
-      
-      // Update backup
       Object.assign(originalData, formData)
-      
-      // Exit edit mode
       isEditing.value = false
-      
-      // Reload profile
       await fetchOwnerProfile()
     } else {
       showToast(response.message || 'Failed to update profile', 'error')
