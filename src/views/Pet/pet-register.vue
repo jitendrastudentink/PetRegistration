@@ -5,11 +5,10 @@
         
         <!-- Loading State -->
         <div v-if="isLoading" class="text-center py-10">
-          <img 
-            src="/public/Tambaram_Corporation_new_logo.jpg" 
-            alt="Loading..." 
-            class="rotating-spinner"
-          >
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3 text-muted">Loading registration form...</p>
         </div>
 
         <!-- Error State -->
@@ -125,17 +124,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.rotating-spinner {
-  width: 80px;
-  height: 80px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .iframe-container {
   position: relative;
   width: 100%;

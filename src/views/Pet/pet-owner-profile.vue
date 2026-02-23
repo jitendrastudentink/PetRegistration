@@ -648,8 +648,8 @@ onMounted(() => {
 }
 
 .rotating-spinner {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   animation: rotate 1.5s linear infinite;
 }
 
