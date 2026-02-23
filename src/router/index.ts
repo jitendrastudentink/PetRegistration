@@ -38,7 +38,7 @@ const routes = [
     name: 'Dashboard',
     component: () => import('../views/Dashboard/Dashboard.vue'),
     meta: {
-      title: 'Dashboard',
+      title: 'Dashboard | THE COMMISIONER AVADI CITY MUNICIPAL CORPORATION',
       requiresAuth: true
     }
   },
@@ -47,7 +47,7 @@ const routes = [
     name: 'pet-details',
     component: () => import('../views/Pet/pet-details.vue'),
     meta: {
-      title: 'Pet Details',
+      title: 'Pet Details | THE COMMISIONER AVADI CITY MUNICIPAL CORPORATION',
       requiresAuth: true
     }
   },
@@ -56,7 +56,7 @@ const routes = [
     name: 'pet-register',
     component: () => import('../views/Pet/pet-register.vue'),
     meta: {
-      title: 'Pet Register',
+      title: 'Pet Register | THE COMMISIONER AVADI CITY MUNICIPAL CORPORATION',
       requiresAuth: true
     }
   },
@@ -65,7 +65,7 @@ const routes = [
     name: 'pet-owner-profile',
     component: () => import('../views/Pet/pet-owner-profile.vue'),
     meta: {
-      title: 'Pet Owner Profile',
+      title: 'Pet Owner Profile | THE COMMISIONER AVADI CITY MUNICIPAL CORPORATION',
       requiresAuth: true
     }
   },
@@ -75,8 +75,9 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || 'Pet Registration'
+  document.title = to.meta.title || 'Pet Registration | Avadi City Municipal Corporation'
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
   const hasToken = !!sessionStorage.getItem('accessToken')
