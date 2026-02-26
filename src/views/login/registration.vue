@@ -16,55 +16,42 @@
 
     <!-- Animated Pet Images Around the Form -->
     <div class="animated-pets">
-      <!-- Left Top Cats -->
       <div class="pet-circle left-top">
         <img src="/CAT.png" alt="Cat" class="pet-image" />
         <div class="sleep-z">z</div>
         <div class="sleep-z z-2">z</div>
         <div class="sleep-z z-3">z</div>
       </div>
-
-      <!-- Left Middle Cats -->
       <div class="pet-circle left-middle">
         <img src="/CAT.png" alt="Cat" class="pet-image" />
         <div class="sleep-z">z</div>
         <div class="sleep-z z-2">z</div>
         <div class="sleep-z z-3">z</div>
       </div>
-
-      <!-- Left Bottom Dog -->
       <div class="pet-circle left-bottom">
         <img src="/DOG.png" alt="Dog" class="pet-image" />
         <div class="sleep-z">z</div>
         <div class="sleep-z z-2">z</div>
         <div class="sleep-z z-3">z</div>
       </div>
-
-      <!-- Right Top Dog -->
       <div class="pet-circle right-top">
         <img src="/DOG.png" alt="Dog" class="pet-image" />
         <div class="sleep-z">z</div>
         <div class="sleep-z z-2">z</div>
         <div class="sleep-z z-3">z</div>
       </div>
-
-      <!-- Right Middle Dog -->
       <div class="pet-circle right-middle">
         <img src="/DOG.png" alt="Dog" class="pet-image" />
         <div class="sleep-z">z</div>
         <div class="sleep-z z-2">z</div>
         <div class="sleep-z z-3">z</div>
       </div>
-
-      <!-- Right Bottom Cats -->
       <div class="pet-circle right-bottom">
         <img src="/CAT.png" alt="Cat" class="pet-image" />
         <div class="sleep-z">z</div>
         <div class="sleep-z z-2">z</div>
         <div class="sleep-z z-3">z</div>
       </div>
-
-      <!-- Curved Red Lines -->
       <svg class="curved-line left-line" viewBox="0 0 200 800" preserveAspectRatio="none">
         <path d="M 180 0 Q 50 200, 150 400 T 180 800" stroke="#e74c3c" stroke-width="3" fill="none"/>
       </svg>
@@ -73,7 +60,7 @@
       </svg>
     </div>
 
-    <!-- Registration Form Card - Horizontal Layout -->
+    <!-- Registration Form Card -->
     <div class="registration-card">
       <!-- Logo -->
       <div class="logo-section">
@@ -93,13 +80,12 @@
         <div class="form-container">
           <!-- Left Column -->
           <div class="form-column">
-            <!-- Personal Information Section -->
-            <div class="section-title">Personal Information</div>
+            <div class="section-title">Personal Information (ব্যক্তিগত তথ্য)</div>
 
             <!-- Row 1: Title, First Name, Last Name -->
             <div class="form-row three-cols">
               <div class="form-group">
-                <label class="form-label">Title</label>
+                <label class="form-label">Title (தலைப்பு)</label>
                 <select v-model="form.title" class="form-control">
                   <option value="" disabled>Title</option>
                   <option value="Mr">Mr</option>
@@ -108,281 +94,166 @@
                   <option value="Dr">Dr</option>
                 </select>
               </div>
-
               <div class="form-group">
-                <label class="form-label">First Name <span class="required">*</span></label>
-                <input
-                  v-model="form.firstName"
-                  type="text"
-                  class="form-control"
-                  placeholder="First Name"
-                  required
-                />
+                <label class="form-label">First Name (முதல் பெயர்) <span class="required">*</span></label>
+                <input v-model="form.firstName" type="text" class="form-control" placeholder="First Name" required />
               </div>
-
               <div class="form-group">
-                <label class="form-label">Last Name <span class="required">*</span></label>
-                <input
-                  v-model="form.lastName"
-                  type="text"
-                  class="form-control"
-                  placeholder="Last Name"
-                  required
-                />
+                <label class="form-label">Last Name (கடைசி பெயர்) <span class="required">*</span></label>
+                <input v-model="form.lastName" type="text" class="form-control" placeholder="Last Name" required />
               </div>
             </div>
 
-            <!-- Row 2: Mobile Number, Property Tax Number -->
+            <!-- Row 2: Mobile Number, Email (2 columns) -->
             <div class="form-row two-cols">
               <div class="form-group">
-                <label class="form-label">Mobile Number <span class="required">*</span></label>
-                <input
-                  v-model="form.mobile"
-                  type="tel"
-                  class="form-control"
-                  placeholder="Mobile Number"
-                  pattern="[0-9]{10}"
-                  maxlength="10"
-                  required
-                />
+                <label class="form-label">Mobile Number (கைபேசி எண்) <span class="required">*</span></label>
+                <input v-model="form.mobile" type="tel" class="form-control" placeholder="Mobile Number" pattern="[0-9]{10}" maxlength="10" required />
               </div>
-
               <div class="form-group">
-                <label class="form-label">Property Tax Number</label>
-                <input
-                  v-model="form.propertyTaxNumber"
-                  type="text"
-                  class="form-control"
-                  placeholder="Property Tax Number"
-                />
-              </div>
-            </div>
-
-            <!-- Row 3: Pet Owner Category -->
-            <div class="form-row">
-              <div class="form-group full-width">
-                <label class="form-label">Pet Owner Category</label>
-                <select v-model="form.petOwnerCategory" class="form-control">
-                  <option value="" disabled>Select Category</option>
-                  <option value="Individual">Individual</option>
-                  <option value="Family">Family</option>
-                  <option value="Organization">Organization</option>
-                  <option value="Breeder">Breeder</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Row 4: Email -->
-            <div class="form-row">
-              <div class="form-group full-width">
-                <label class="form-label">Email</label>
-                <input
-                  v-model="form.email"
-                  type="email"
-                  class="form-control"
-                  placeholder="Email"
-                />
+                <label class="form-label">Email (மின்னஞ்சல்)</label>
+                <input v-model="form.email" type="email" class="form-control" placeholder="Email" />
               </div>
             </div>
 
             <!-- Address Section -->
-            <div class="section-title">Address</div>
+            <div class="section-title">Address (முகவரி)</div>
 
-            <!-- Row 4: State, Zone, Ward -->
+            <!-- Row: State, Zone, Ward -->
             <div class="form-row three-cols">
+              <!-- State - Fixed to Tamilnadu -->
               <div class="form-group">
-                <label class="form-label">State</label>
-                <select v-model="form.state" class="form-control">
-                  <option value="" disabled>Tamilnadu / தமிழ்நாடு</option>
-                  <option value="Tamilnadu">Tamilnadu</option>
-                </select>
+                <label class="form-label">State (மாநிலம்)</label>
+                <input
+                  type="text"
+                  class="form-control state-fixed"
+                  value="Tamilnadu / தமிழ்நாடு"
+                  readonly
+                />
               </div>
 
+              <!-- Zone - Select -->
               <div class="form-group">
-                <label class="form-label">Zone</label>
-                <select v-model="form.zone" class="form-control">
-                  <option value="" disabled>Zone</option>
+                <label class="form-label">Zone (மண்டலம்) <span class="required">*</span></label>
+                <select v-model="form.zone" class="form-control" @change="onZoneChange">
+                  <option value="" disabled>Select Zone</option>
                   <option value="Zone1">Zone 1</option>
                   <option value="Zone2">Zone 2</option>
                   <option value="Zone3">Zone 3</option>
+                  <option value="Zone4">Zone 4</option>
                 </select>
               </div>
 
+              <!-- Ward - Filtered by Zone -->
               <div class="form-group">
-                <label class="form-label">Ward</label>
-                <select v-model="form.ward" class="form-control">
-                  <option value="" disabled>Please select Ward</option>
-                   <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                <label class="form-label">Ward (வார்டு) <span class="required">*</span></label>
+                <select v-model="form.ward" class="form-control" :disabled="!form.zone">
+                  <option value="" disabled>{{ form.zone ? 'Select Ward' : 'Please select Zone first' }}</option>
+                  <option v-for="ward in filteredWards" :key="ward" :value="String(ward)">Ward {{ ward }}</option>
                 </select>
               </div>
             </div>
 
+            <!-- Row: Street Name, Door No, Locality (3 columns) -->
+            <div class="form-row three-cols">
+              <div class="form-group">
+                <label class="form-label">Street Name (தெரு பெயர்)</label>
+                <select v-model="form.streetName" class="form-control">
+                  <option value="" disabled>Please select zone and ward</option>
+                  <option value="138/52b varadharajan street">138/52b varadharajan street</option>
+                  <option value="242 vinayagar kovil street mellanathur thiruvallur">242 vinayagar kovil street mellanathur thiruvallur</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Door No (கதவு எண்)</label>
+                <input v-model="form.doorNo" type="text" class="form-control" placeholder="Door No" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Locality / Building Name (இருப்பிடம் / கட்டிட பெயர்)</label>
+                <input v-model="form.locality" type="text" class="form-control" placeholder="Locality / Building Name" />
+              </div>
+            </div>
+
+            <!-- Row: PIN Code, Property Tax Number (2 columns) -->
+            <div class="form-row two-cols">
+              <div class="form-group">
+                <label class="form-label">PIN Code (தபால் குறியீடு)</label>
+                <input v-model="form.pinCode" type="text" class="form-control" placeholder="PIN Code" pattern="[0-9]{6}" maxlength="6" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Property Tax Number (சொத்து வரி எண்)</label>
+                <input v-model="form.propertyTaxNumber" type="text" class="form-control" placeholder="Property Tax Number" />
+              </div>
+            </div>
+
+            <!-- Row: Pet Owner Category -->
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Pet Owner Category (செல்லப்பிராணி உரிமையாளர் வகை)</label>
+                <select v-model="form.petOwnerCategory" class="form-control">
+                  <option value="" disabled>Select Category</option>
+                  <option value="Household">Household</option>
+                  <option value="Professional Breeders">Professional Breeders</option>
+                </select>
+              </div>
+            </div>
           </div>
 
           <!-- Right Column -->
           <div class="form-column">
-            <!-- Continue Address Section -->
-            <div class="section-title-spacer"></div>
-
-            <!-- Row 5: Street Name, Door No, Locality, PIN Code -->
-            <div class="form-row four-cols">
-              <div class="form-group">
-                <label class="form-label">Street Name</label>
-                <select v-model="form.streetName" class="form-control">
-                  <option value="" disabled>Please select zone and ward</option>
-                      <option value="">138/52b varadharajan street</option>
-                      <option value="">242 vinayagar kovil street mellanathur thiruvallur </option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Door No</label>
-                <input
-                  v-model="form.doorNo"
-                  type="text"
-                  class="form-control"
-                  placeholder="Door No"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Locality / Building Name</label>
-                <input
-                  v-model="form.locality"
-                  type="text"
-                  class="form-control"
-                  placeholder="Locality / Building Name"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">PIN Code</label>
-                <input
-                  v-model="form.pinCode"
-                  type="text"
-                  class="form-control"
-                  placeholder="PIN Code"
-                  pattern="[0-9]{6}"
-                  maxlength="6"
-                />
-              </div>
-            </div>
-
             <!-- Co-Owner Section -->
-            <div class="section-title">Co-Owner Details</div>
+            <div class="section-title">Co-Owner Details (கூட்டு உரிமையாளர் விவரங்கள்)</div>
 
-            <!-- Co-Owner 1 Name -->
             <div class="form-row">
               <div class="form-group full-width">
-                <label class="form-label">Co - Owner 1 (Name)</label>
-                <input
-                  v-model="form.coOwner1FirstName"
-                  type="text"
-                  class="form-control"
-                  placeholder="Name"
-                />
+                <label class="form-label">Co - Owner 1 (Name) (கூட்டு உரிமையாளர் 1 (பெயர்)) <span class="optional">(Optional)</span></label>
+                <input v-model="form.coOwner1FirstName" type="text" class="form-control" placeholder="Name" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Co - Owner 1 (Mobile Number) (கூட்டு உரிமையாளர் 1 (கைபேசி எண்)) <span class="optional">(Optional)</span></label>
+                <input v-model="form.coOwner1Mobile" type="tel" class="form-control" placeholder="10-digit Mobile Number" pattern="[0-9]{10}" maxlength="10" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Co - Owner 2 (Name) (கூட்டு உரிமையாளர் 2 (பெயர்)) <span class="optional">(Optional)</span></label>
+                <input v-model="form.coOwner2FirstName" type="text" class="form-control" placeholder="Name" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label class="form-label">Co - Owner 2 (Mobile Number) (கூட்டு உரிமையாளர் 2 (கைபேசி எண்)) <span class="optional">(Optional)</span></label>
+                <input v-model="form.coOwner2Mobile" type="tel" class="form-control" placeholder="10-digit Mobile Number" pattern="[0-9]{10}" maxlength="10" />
               </div>
             </div>
 
-            <!-- Co-Owner 1 Mobile -->
-            <div class="form-row">
-              <div class="form-group full-width">
-                <label class="form-label">Co - Owner 1 (Mobile Number) <span class="optional">(Optional)</span></label>
-                <input
-                  v-model="form.coOwner1Mobile"
-                  type="tel"
-                  class="form-control"
-                  placeholder="Mobile Number"
-                  pattern="[0-9]{10}"
-                  maxlength="10"
-                />
-              </div>
-            </div>
+            <!-- OTP Section -->
+            <div class="section-title">Pin Generate (பின் உৎபன்ன)</div>
 
-            <!-- Co-Owner 2 Name -->
-            <div class="form-row">
-              <div class="form-group full-width">
-                <label class="form-label">Co - Owner 2 (Name)</label>
-                <input
-                  v-model="form.coOwner2FirstName"
-                  type="text"
-                  class="form-control"
-                  placeholder="Name"
-                />
-              </div>
-            </div>
-
-            <!-- Co-Owner 2 Mobile -->
-            <div class="form-row">
-              <div class="form-group full-width">
-                <label class="form-label">Co - Owner 2 (Mobile Number) <span class="optional">(Optional)</span></label>
-                <input
-                  v-model="form.coOwner2Mobile"
-                  type="tel"
-                  class="form-control"
-                  placeholder="Mobile Number"
-                  pattern="[0-9]{10}"
-                  maxlength="10"
-                />
-              </div>
-            </div>
-
-            <!-- OTP Generation Section -->
-            <div class="section-title">Pin Generate</div>
-
-            <!-- Row 6: Manual OTP Entry (6 digits) -->
             <div class="form-row two-cols">
               <div class="form-group">
-                <label class="form-label">Enter 6-Digit OTP <span class="required">*</span></label>
-                <input
-                  v-model="form.otp"
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter OTP"
-                  pattern="[0-9]{6}"
-                  maxlength="6"
-                  required
-                />
+                <label class="form-label">Enter 6-Digit OTP (6 இலக்க OTP ஐ உள்ளிடவும்) <span class="required">*</span></label>
+                <input v-model="form.otp" type="text" class="form-control" placeholder="Enter OTP" pattern="[0-9]{6}" maxlength="6" required />
                 <small class="form-hint">Enter 6-digit OTP</small>
               </div>
-
               <div class="form-group">
-                <label class="form-label">Confirm OTP <span class="required">*</span></label>
-                <input
-                  v-model="form.confirmOtp"
-                  type="text"
-                  class="form-control"
-                  placeholder="Confirm OTP"
-                  pattern="[0-9]{6}"
-                  maxlength="6"
-                  required
-                />
+                <label class="form-label">Confirm OTP (OTP ஐ உறுதிப்படுத்தவும்) <span class="required">*</span></label>
+                <input v-model="form.confirmOtp" type="text" class="form-control" placeholder="Confirm OTP" pattern="[0-9]{6}" maxlength="6" required />
               </div>
             </div>
 
             <!-- Messages and Submit -->
             <div class="bottom-section">
-              <!-- Error Message -->
-              <div v-if="error" class="error-message">
-                {{ error }}
-              </div>
-
-              <!-- Success Message -->
-              <div v-if="success" class="success-message">
-                {{ success }}
-              </div>
-
-              <!-- Submit Button -->
+              <div v-if="error" class="error-message">{{ error }}</div>
+              <div v-if="success" class="success-message">{{ success }}</div>
               <div class="submit-section">
                 <button type="submit" class="submit-btn" :disabled="loading">
                   <span v-if="loading" class="spinner"></span>
                   <span v-else>Submit</span>
                 </button>
               </div>
-
-              <!-- Back to Login Link -->
               <div class="back-link">
                 <a href="#" @click.prevent="backToLogin">Already have an account? Login</a>
               </div>
@@ -397,6 +268,14 @@
 <script>
 import ApiService from '@/services/apiService';
 
+// Zone → Ward mapping
+const ZONE_WARDS = {
+  Zone1: [1, 2, 3, 4, 5, 11, 12, 15, 16, 17, 18, 19],
+  Zone2: [6, 7, 8, 9, 10, 25, 26, 27, 28, 29, 30, 32],
+  Zone3: [31, 33, 34, 35, 40, 41, 42, 43, 44, 46, 47, 48],
+  Zone4: [13, 14, 20, 21, 22, 23, 24, 36, 37, 38, 39, 45]
+};
+
 export default {
   name: 'RegisterUser',
   data() {
@@ -406,10 +285,10 @@ export default {
         firstName: '',
         lastName: '',
         mobile: '',
+        email: '',
         propertyTaxNumber: '',
         petOwnerCategory: '',
-        email: '',
-        state: '',
+        state: 'Tamilnadu',
         zone: '',
         ward: '',
         streetName: '',
@@ -417,10 +296,8 @@ export default {
         locality: '',
         pinCode: '',
         coOwner1FirstName: '',
-        coOwner1LastName: '',
         coOwner1Mobile: '',
         coOwner2FirstName: '',
-        coOwner2LastName: '',
         coOwner2Mobile: '',
         otp: '',
         confirmOtp: ''
@@ -430,84 +307,129 @@ export default {
       success: ''
     };
   },
+  computed: {
+    filteredWards() {
+      return this.form.zone ? ZONE_WARDS[this.form.zone] || [] : [];
+    }
+  },
   methods: {
+    onZoneChange() {
+      this.form.ward = '';
+    },
     async handleSubmit() {
       this.error = '';
       this.success = '';
 
-      // Validate mobile number
-      if (this.form.mobile.length !== 10) {
+      // ===== VALIDATION START =====
+      
+      // Required fields
+      if (!this.form.firstName || this.form.firstName.trim() === '') {
+        this.error = 'First Name is required';
+        return;
+      }
+
+      if (!this.form.lastName || this.form.lastName.trim() === '') {
+        this.error = 'Last Name is required';
+        return;
+      }
+
+      if (!this.form.mobile || this.form.mobile.length !== 10) {
         this.error = 'Please enter a valid 10-digit mobile number';
         return;
       }
 
-      // Validate PIN code if provided
+      if (!this.form.zone) {
+        this.error = 'Zone is required';
+        return;
+      }
+
+      if (!this.form.ward) {
+        this.error = 'Ward is required';
+        return;
+      }
+
+      // Optional PIN Code validation (only if provided)
       if (this.form.pinCode && this.form.pinCode.length !== 6) {
         this.error = 'Please enter a valid 6-digit PIN code';
         return;
       }
 
-      // Validate OTP
-      if (this.form.otp.length !== 6) {
+      // OTP validation
+      if (!this.form.otp || this.form.otp.length !== 6) {
         this.error = 'Please enter a valid 6-digit OTP';
         return;
       }
 
-      // Validate OTP match
+      if (!this.form.confirmOtp || this.form.confirmOtp.length !== 6) {
+        this.error = 'Please confirm OTP (6 digits)';
+        return;
+      }
+
       if (this.form.otp !== this.form.confirmOtp) {
         this.error = 'OTP and Confirm OTP do not match';
         return;
       }
 
+      // Co-Owner mobile validation (optional, but if provided must be 10 digits)
+      if (this.form.coOwner1Mobile && this.form.coOwner1Mobile.length !== 10) {
+        this.error = 'Co-Owner 1 mobile number must be 10 digits (or leave blank)';
+        return;
+      }
+
+      if (this.form.coOwner2Mobile && this.form.coOwner2Mobile.length !== 10) {
+        this.error = 'Co-Owner 2 mobile number must be 10 digits (or leave blank)';
+        return;
+      }
+
+      // ===== VALIDATION END =====
+
       this.loading = true;
 
       try {
-        // Prepare data according to API format
+        // Build API payload with correct field names for backend
         const ownerData = {
-          first_name: this.form.firstName,
-          last_name: this.form.lastName,
-          title: this.form.title,
+          first_name: this.form.firstName.trim(),
+          last_name: this.form.lastName.trim(),
+          title: this.form.title || null,
           mobileNumber: this.form.mobile,
-          propertyTaxNumber: this.form.propertyTaxNumber,
-          petOwnerCategory: this.form.petOwnerCategory,
-          emailId: this.form.email,
+          emailId: this.form.email || null,
+          propertyTaxNumber: this.form.propertyTaxNumber || null,
+          petOwnerCategory: this.form.petOwnerCategory || null,
           state: this.form.state,
           zone: this.form.zone,
-          ward: this.form.ward,
-          streetName: this.form.streetName,
-          doorNo: this.form.doorNo,
-          locality: this.form.locality,
-          pinCode: this.form.pinCode,
-          coOwner1FirstName: this.form.coOwner1FirstName,
-          coOwner1LastName: this.form.coOwner1LastName,
-          coOwner1Mobile: this.form.coOwner1Mobile,
-          coOwner2FirstName: this.form.coOwner2FirstName,
-          coOwner2LastName: this.form.coOwner2LastName,
-          coOwner2Mobile: this.form.coOwner2Mobile,
+          ward: String(this.form.ward), // CRITICAL: Convert to string
+          streetName: this.form.streetName || null,
+          doorNo: this.form.doorNo || null,
+          locality: this.form.locality || null,
+          pinCode: this.form.pinCode || null,
+          // Co-Owner fields - these will be mapped to database field names by API
+          coOwner1FirstName: this.form.coOwner1FirstName || null,
+          coOwner1Mobile: this.form.coOwner1Mobile || null,
+          coOwner2FirstName: this.form.coOwner2FirstName || null,
+          coOwner2Mobile: this.form.coOwner2Mobile || null,
           otp: this.form.otp
         };
 
-        // Remove empty fields
+        // Remove null/empty values to keep payload clean
         Object.keys(ownerData).forEach(key => {
           if (ownerData[key] === '' || ownerData[key] === null) {
             delete ownerData[key];
           }
         });
 
-        // Call the API
+        console.log('Submitting registration with payload:', ownerData);
+
         const response = await ApiService.registerPetOwner(ownerData);
-        
         console.log('Registration response:', response);
-        
-        this.success = 'Registration successful! Login OTP sent to your mobile. Redirecting to login...';
-        
-        // Redirect to login after 2 seconds
+
+        this.success = 'Registration successful! OTP sent to your mobile. Redirecting to login...';
         setTimeout(() => {
           this.$router.push('/');
         }, 2000);
       } catch (err) {
         console.error('Registration error:', err);
-        this.error = err.message || 'Registration failed. Please try again.';
+        // Show API error message if available, otherwise generic message
+        this.error = err.response?.data?.message || err.message || 'Registration failed. Please try again.';
       } finally {
         this.loading = false;
       }
@@ -548,7 +470,6 @@ export default {
   overflow: hidden;
 }
 
-/* Background SVG Styles */
 .bg {
   position: absolute;
   top: 0;
@@ -559,7 +480,6 @@ export default {
   z-index: 0;
 }
 
-/* Animated Pets Container */
 .animated-pets {
   position: absolute;
   top: 0;
@@ -570,7 +490,6 @@ export default {
   z-index: 0;
 }
 
-/* Pet Circle Containers with Red/Blue Rings */
 .pet-circle {
   position: absolute;
   width: 100px;
@@ -591,95 +510,34 @@ export default {
   animation: pulse 3s ease-in-out infinite;
 }
 
-/* Left side circles - Blue */
 .left-top::before,
-.left-middle::before {
-  border-color: #3498db;
-}
-
-/* Left bottom - Red */
-.left-bottom::before {
-  border-color: #e74c3c;
-}
-
-/* Right side circles - Red */
+.left-middle::before { border-color: #3498db; }
+.left-bottom::before { border-color: #e74c3c; }
 .right-top::before,
-.right-middle::before {
-  border-color: #e74c3c;
-}
+.right-middle::before { border-color: #e74c3c; }
+.right-bottom::before { border-color: #3498db; }
 
-/* Right bottom - Blue */
-.right-bottom::before {
-  border-color: #3498db;
-}
+.left-top    { top: 5%;    left: 5%;   animation: float-gentle 4s ease-in-out infinite; }
+.left-middle { top: 45%;   left: 3%;   animation: float-gentle 4.5s ease-in-out infinite 0.5s; }
+.left-bottom { bottom: 10%; left: 7%;  animation: float-gentle 4.2s ease-in-out infinite 1s; }
+.right-top   { top: 10%;   right: 5%;  animation: float-gentle 3.8s ease-in-out infinite 0.3s; }
+.right-middle{ top: 42%;   right: 3%;  animation: float-gentle 4.3s ease-in-out infinite 0.8s; }
+.right-bottom{ bottom: 5%; right: 8%;  animation: float-gentle 4s ease-in-out infinite 1.2s; }
 
-/* Positions */
-.left-top {
-  top: 5%;
-  left: 5%;
-  animation: float-gentle 4s ease-in-out infinite;
-}
+.curved-line { position: absolute; height: 100%; width: 150px; opacity: 0.6; }
+.left-line   { left: 0; top: 0; }
+.right-line  { right: 0; top: 0; }
 
-.left-middle {
-  top: 45%;
-  left: 3%;
-  animation: float-gentle 4.5s ease-in-out infinite 0.5s;
-}
-
-.left-bottom {
-  bottom: 10%;
-  left: 7%;
-  animation: float-gentle 4.2s ease-in-out infinite 1s;
-}
-
-.right-top {
-  top: 10%;
-  right: 5%;
-  animation: float-gentle 3.8s ease-in-out infinite 0.3s;
-}
-
-.right-middle {
-  top: 42%;
-  right: 3%;
-  animation: float-gentle 4.3s ease-in-out infinite 0.8s;
-}
-
-.right-bottom {
-  bottom: 5%;
-  right: 8%;
-  animation: float-gentle 4s ease-in-out infinite 1.2s;
-}
-
-/* Curved Lines */
-.curved-line {
-  position: absolute;
-  height: 100%;
-  width: 150px;
-  opacity: 0.6;
-}
-
-.left-line {
-  left: 0;
-  top: 0;
-}
-
-.right-line {
-  right: 0;
-  top: 0;
-}
-
-/* Pet Image Styles */
 .pet-image {
   width: 60px;
   height: 60px;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
   position: relative;
   z-index: 1;
 }
 
-/* Sleep Z's */
 .sleep-z {
   position: absolute;
   font-size: 16px;
@@ -687,74 +545,39 @@ export default {
   color: #F26A2C;
   opacity: 0;
   font-family: Arial, sans-serif;
-}
-
-.sleep-z {
   top: -20px;
   left: 50%;
   animation: float-z 3s ease-out infinite;
 }
+.sleep-z.z-2 { animation: float-z 3s ease-out 1s infinite; font-size: 14px; }
+.sleep-z.z-3 { animation: float-z 3s ease-out 2s infinite; font-size: 12px; }
 
-.sleep-z.z-2 {
-  animation: float-z 3s ease-out 1s infinite;
-  font-size: 14px;
-}
-
-.sleep-z.z-3 {
-  animation: float-z 3s ease-out 2s infinite;
-  font-size: 12px;
-}
-
-/* Animations */
 @keyframes float-gentle {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
 }
-
 @keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
+  0%, 100% { transform: scale(1);   opacity: 0.6; }
+  50%       { transform: scale(1.1); opacity: 0.8; }
 }
-
 @keyframes float-z {
-  0% {
-    opacity: 0;
-    transform: translateY(0) translateX(-50%) scale(0.5);
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-40px) translateX(-30px) scale(1);
-  }
+  0%   { opacity: 0; transform: translateY(0) translateX(-50%) scale(0.5); }
+  20%  { opacity: 1; }
+  80%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-40px) translateX(-30px) scale(1); }
 }
 
-/* Registration Card - Horizontal Layout */
 .registration-card {
   background: white;
   border-radius: 16px;
   padding: 24px 32px;
   max-width: 1400px;
   width: 100%;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.15);
   position: relative;
   z-index: 1;
   max-height: 95vh;
-  overflow: visible;
+  overflow-y: auto;
 }
 
 .logo-section {
@@ -785,7 +608,6 @@ export default {
   margin: 8px 0 20px 0;
 }
 
-/* Form Container - Two Columns */
 .form-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -806,28 +628,15 @@ export default {
   border-bottom: 2px solid #3498db;
 }
 
-.section-title-spacer {
-  height: 31px;
-  margin-bottom: 10px;
-}
-
 .form-row {
   display: grid;
   gap: 12px;
   margin-bottom: 12px;
 }
 
-.form-row.three-cols {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.form-row.two-cols {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.form-row.four-cols {
-  grid-template-columns: repeat(4, 1fr);
-}
+.form-row.three-cols { grid-template-columns: repeat(3, 1fr); }
+.form-row.two-cols   { grid-template-columns: repeat(2, 1fr); }
+.form-row.four-cols  { grid-template-columns: repeat(4, 1fr); }
 
 .form-group {
   display: flex;
@@ -852,16 +661,29 @@ export default {
   border-radius: 6px;
   font-size: 13px;
   transition: all 0.3s ease;
+  background-color: #fff;
 }
 
 .form-control:focus {
   outline: none;
   border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
 }
 
-.form-control::placeholder {
-  color: #999;
+.form-control::placeholder { color: #999; }
+
+.form-control:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+/* Fixed State field styling */
+.state-fixed {
+  background-color: #f0f4f8;
+  color: #555;
+  cursor: default;
+  border-color: #ccc;
 }
 
 select.form-control {
@@ -880,8 +702,9 @@ select.form-control {
   margin-top: 3px;
 }
 
-.bottom-section {
+.bottom-section { 
   margin-top: auto;
+  padding-top: 12px;
 }
 
 .submit-section {
@@ -901,37 +724,28 @@ select.form-control {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(102,126,234,0.4);
   min-width: 130px;
 }
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 20px rgba(102,126,234,0.6);
 }
-
-.submit-btn:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+.submit-btn:active:not(:disabled) { transform: translateY(0); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255,255,255,0.3);
   border-radius: 50%;
   border-top-color: white;
   animation: spin 0.8s linear infinite;
   display: inline-block;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .error-message {
   color: #e74c3c;
@@ -955,10 +769,7 @@ select.form-control {
   border-left: 4px solid #27ae60;
 }
 
-.back-link {
-  text-align: center;
-  margin-top: 10px;
-}
+.back-link { text-align: center; margin-top: 10px; }
 
 .back-link a {
   color: #3498db;
@@ -966,94 +777,35 @@ select.form-control {
   font-size: 13px;
   transition: color 0.3s ease;
 }
+.back-link a:hover { color: #2980b9; text-decoration: underline; }
 
-.back-link a:hover {
-  color: #2980b9;
-  text-decoration: underline;
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 1366px) {
-  .registration-card {
-    max-width: 1200px;
-    padding: 20px 28px;
-  }
-
-  .pet-circle {
-    width: 85px;
-    height: 85px;
-  }
-
-  .pet-image {
-    width: 50px;
-    height: 50px;
-  }
+  .registration-card { max-width: 1200px; padding: 20px 28px; }
+  .pet-circle { width: 85px; height: 85px; }
+  .pet-image  { width: 50px; height: 50px; }
 }
 
 @media (max-width: 1024px) {
-  .form-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .section-title-spacer {
-    display: none;
-  }
-
-  .registration-card {
-    max-height: none;
-    overflow-y: auto;
-  }
-
-  .pet-circle {
-    width: 75px;
-    height: 75px;
-  }
-
-  .pet-image {
-    width: 45px;
-    height: 45px;
-  }
-
-  .form-row.four-cols {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .form-container { grid-template-columns: 1fr; gap: 20px; }
+  .registration-card { max-height: none; overflow-y: auto; }
+  .pet-circle { width: 75px; height: 75px; }
+  .pet-image  { width: 45px; height: 45px; }
+  .form-row.four-cols { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .form-row.three-cols,
   .form-row.two-cols,
-  .form-row.four-cols {
-    grid-template-columns: 1fr;
-  }
-
-  .left-bottom,
-  .right-top {
-    display: none;
-  }
+  .form-row.four-cols { grid-template-columns: 1fr; }
+  .left-bottom, .right-top { display: none; }
 }
 
 @media (max-width: 480px) {
-  .registration-card {
-    padding: 16px 14px;
-  }
-
-  .corporation-logo {
-    width: 60px;
-    height: 60px;
-  }
-
-  .corporation-name {
-    font-size: 13px;
-  }
-
-  .registration-title {
-    font-size: 15px;
-  }
-
-  .left-middle,
-  .right-middle {
-    display: none;
-  }
+  .registration-card { padding: 16px 14px; }
+  .corporation-logo  { width: 60px; height: 60px; }
+  .corporation-name  { font-size: 13px; }
+  .registration-title{ font-size: 15px; }
+  .left-middle, .right-middle { display: none; }
 }
 </style>
