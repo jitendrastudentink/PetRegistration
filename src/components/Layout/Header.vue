@@ -245,7 +245,6 @@ const loadUserData = () => {
     const userStr = sessionStorage.getItem('userData')
     if (userStr) {
       userData.value = JSON.parse(userStr)
-      console.log('User data loaded:', userData.value)
     }
   } catch (error) {
     console.error('Error loading user data:', error)

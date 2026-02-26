@@ -70,7 +70,7 @@ async function initializeMetronicComponents() {
   try {
     const loaded = await waitForMetronic()
     if (!loaded) {
-      console.warn('Metronic libraries not loaded in time')
+      // console.warn('Metronic libraries not loaded in time')
       return
     }
 
@@ -129,8 +129,6 @@ async function initializeMetronicComponents() {
         }
       })
     }
-
-    console.log('✅ Metronic components initialized successfully')
   } catch (error) {
     console.error('❌ Error initializing Metronic components:', error)
   } finally {
