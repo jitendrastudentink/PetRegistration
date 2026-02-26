@@ -108,7 +108,8 @@
 
         <!-- Links -->
         <div class="form-links">
-          <a href="#" class="link-text" @click.prevent="forgotPassword">Forgot PIN?</a>
+          <a href="#" class="link-text" @click.prevent="forgotPassword"></a>
+          <!-- <a href="#" class="link-text" @click.prevent="forgotPassword">Forgot PIN?</a> -->
           <a href="#" class="link-text" @click.prevent="newUser">New User</a>
         </div>
         

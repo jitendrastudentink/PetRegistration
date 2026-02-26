@@ -1,6 +1,5 @@
 <template>
   <div class="pet-registration-wrapper">
-    <!-- Animated Background SVG -->
     <svg class="bg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" preserveAspectRatio="xMinYMin slice" viewBox="0 0 700 700">
       <g mask="url(&quot;#SvgjsMask1108&quot;)" fill="none">
         <path d="M350 46.32C309.83 46.32 289.24 110.49 289.24 175C289.24 241.12 309.65 307.58 350 307.58C399.15 307.58 468.24 240.85 468.24 175C468.24 110.22 399.33 46.32 350 46.32" stroke="rgba(242, 106, 44, 1)" stroke-width="2"></path>
@@ -13,8 +12,6 @@
         </mask>
       </defs>
     </svg>
-
-    <!-- Animated Pet Images Around the Form -->
     <div class="animated-pets">
       <div class="pet-circle left-top">
         <img src="/CAT.png" alt="Cat" class="pet-image" />
@@ -59,8 +56,6 @@
         <path d="M 20 0 Q 150 200, 50 400 T 20 800" stroke="#e74c3c" stroke-width="3" fill="none"/>
       </svg>
     </div>
-
-    <!-- Registration Form Card -->
     <div class="registration-card">
       <!-- Logo -->
       <div class="logo-section">
@@ -421,14 +416,12 @@ export default {
 
         const response = await ApiService.registerPetOwner(ownerData);
         console.log('Registration response:', response);
-
-        this.success = 'Registration successful! OTP sent to your mobile. Redirecting to login...';
+        this.success = 'Registration successful! Redirecting to login...';
         setTimeout(() => {
           this.$router.push('/');
         }, 2000);
       } catch (err) {
         console.error('Registration error:', err);
-        // Show API error message if available, otherwise generic message
         this.error = err.response?.data?.message || err.message || 'Registration failed. Please try again.';
       } finally {
         this.loading = false;
