@@ -131,6 +131,17 @@
                     <td class="text-gray-600">{{ formatDate(item.registrationDate) }}</td>
                     <td class="text-center">
                       <button 
+                        class="btn btn-icon btn-bg-light btn-active-color-info btn-sm me-1"
+                        @click="openCertificatePreview(item)"
+                        title="Preview Certificate"
+                      >
+                        <i class="ki-duotone ki-eye fs-2">
+                          <span class="path1"></span>
+                          <span class="path2"></span>
+                          <span class="path3"></span>
+                        </i>
+                      </button>
+                      <button 
                         class="btn btn-icon btn-bg-light btn-active-color-success btn-sm"
                         @click="downloadCertificate(item)"
                         title="Download Certificate"
@@ -245,6 +256,17 @@
 
                   <!-- Quick Actions -->
                   <div class="d-flex gap-2 mb-3">
+                    <button 
+                      class="btn btn-sm btn-light-info flex-fill"
+                      @click="openCertificatePreview(item)"
+                    >
+                      <i class="ki-duotone ki-eye fs-4 me-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                      </i>
+                      Preview
+                    </button>
                     <button 
                       class="btn btn-sm btn-light-success flex-fill"
                       @click="downloadCertificate(item)"
@@ -702,12 +724,22 @@
       </div>
     </div>
   </div>
+  <!-- Certificate Preview Modal -->
+  <CertificatePreview
+    :showModal="certificateModalOpen"
+    :certificateData="certificateData"
+    :loading="certificateLoading"
+    :error="certificateError"
+    :petId="selectedPetId"
+    @close="closeCertificatePreview"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed } from 'vue'
 import Swal from 'sweetalert2'
 import ApiService from '@/services/apiService'
+import CertificatePreview from './certificatepreview.vue'
 
 interface PetItem {
   id: number
@@ -777,6 +809,13 @@ const imageModalOpen = ref(false)
 const selectedItem = ref<PetItem | null>(null)
 const currentImage = ref('')
 let toastIdCounter = 0
+
+// Certificate Preview State
+const certificateModalOpen = ref(false)
+const certificateData = ref<any>(null)
+const certificateLoading = ref(false)
+const certificateError = ref<string | null>(null)
+const selectedPetId = ref<number | null>(null)
 
 const totalPets = computed(() => items.value.length)
 const totalCats = computed(() => items.value.filter(pet => {
@@ -948,6 +987,34 @@ const formatDate = (dateString: string) => {
   } catch (e) {
     return '-'
   }
+}
+
+const openCertificatePreview = async (item: PetItem) => {
+  selectedPetId.value = item.id
+  certificateData.value = null
+  certificateError.value = null
+  certificateLoading.value = true
+  certificateModalOpen.value = true
+
+  try {
+    const response = await ApiService.getCertificatePreview(item.id)
+    if (response.success && response.data) {
+      certificateData.value = response.data
+    } else {
+      certificateError.value = response.message || 'Failed to load certificate preview'
+    }
+  } catch (error: any) {
+    certificateError.value = error.message || 'Error loading certificate preview'
+  } finally {
+    certificateLoading.value = false
+  }
+}
+
+const closeCertificatePreview = () => {
+  certificateModalOpen.value = false
+  certificateData.value = null
+  certificateError.value = null
+  selectedPetId.value = null
 }
 
 const downloadCertificate = (item: PetItem) => {
