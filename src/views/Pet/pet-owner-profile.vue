@@ -27,21 +27,19 @@
               
               <!-- Edit/Save/Cancel Buttons -->
               <div class="d-flex gap-2">
-                <!-- Edit Button -->
                 <button 
                   v-if="!isEditing"
                   type="button" 
-                  class="btn btn-light btn-sm"
+                  class="btn btn-warning btn-sm"
                   @click="enableEdit"
                 >
-                  <i class="ki-duotone ki-pencil fs-3">
+                  <i class="ki-duotone ki-pencil fs-3 me-1">
                     <span class="path1"></span>
                     <span class="path2"></span>
                   </i>
-                  Edit Profile
+                  Edit
                 </button>
 
-                <!-- Save Button -->
                 <button 
                   v-if="isEditing"
                   type="button" 
@@ -81,7 +79,7 @@
           </div>
 
           <!-- Cat and Dog Images -->
-          <div class="pet-images-header">
+          <!-- <div class="pet-images-header">
             <div class="pet-images-container">
               <div class="pet-image-wrapper cat-wrapper">
                 <img 
@@ -98,7 +96,7 @@
                 >
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="card-body">
             <!-- Edit Mode Indicator -->
@@ -187,6 +185,19 @@
                       class="form-control"
                       :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
                       placeholder="Enter email address"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+
+                  <!-- Property Tax Number -->
+                  <div class="col-md-4 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">Property Tax Number</label>
+                    <input 
+                      v-model="formData.propertyTaxNumber" 
+                      type="text" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter property tax number"
                       :readonly="!isEditing"
                     />
                   </div>
@@ -287,6 +298,90 @@
                 </div>
               </div>
 
+              <!-- Co-Owner Details -->
+              <div class="separator my-6"></div>
+
+              <div class="mb-6">
+                <div class="d-flex align-items-center mb-4">
+                  <i class="ki-duotone ki-people fs-2 me-2 text-primary">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    <span class="path4"></span>
+                    <span class="path5"></span>
+                  </i>
+                  <h4 class="text-gray-800 mb-0">Co-Owner Details</h4>
+                </div>
+
+                <div class="row">
+                  <!-- Co-Owner 1 Name -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 1 (Name)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner1Name" 
+                      type="text" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 1 name"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+
+                  <!-- Co-Owner 1 Mobile -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 1 (Mobile Number)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner1Mobile" 
+                      type="tel" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 1 mobile number"
+                      maxlength="10"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+
+                  <!-- Co-Owner 2 Name -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 2 (Name)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner2Name" 
+                      type="text" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 2 name"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+
+                  <!-- Co-Owner 2 Mobile -->
+                  <div class="col-md-6 mb-4">
+                    <label class="form-label fw-semibold text-gray-600">
+                      Co - Owner 2 (Mobile Number)
+                      <span class="text-muted fw-normal fs-7 ms-1">(Optional)</span>
+                    </label>
+                    <input 
+                      v-model="formData.coOwner2Mobile" 
+                      type="tel" 
+                      class="form-control"
+                      :class="isEditing ? 'form-control-solid' : 'form-control-solid bg-light'"
+                      placeholder="Enter co-owner 2 mobile number"
+                      maxlength="10"
+                      :readonly="!isEditing"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <!-- Bottom Buttons (when editing) -->
               <div v-if="isEditing" class="d-flex justify-content-center gap-3 mt-8">
                 <button 
@@ -366,12 +461,17 @@ const formData = reactive({
   ownerName: '',
   mobileNumber: '',
   emailId: '',
+  propertyTaxNumber: '',
   zone: '',
   ward: '',
   streetName: '',
   doorNo: '',
   locality: '',
-  pinCode: ''
+  pinCode: '',
+  coOwner1Name: '',
+  coOwner1Mobile: '',
+  coOwner2Name: '',
+  coOwner2Mobile: ''
 })
 
 // Backup for cancel
@@ -380,12 +480,17 @@ const originalData = reactive({
   ownerName: '',
   mobileNumber: '',
   emailId: '',
+  propertyTaxNumber: '',
   zone: '',
   ward: '',
   streetName: '',
   doorNo: '',
   locality: '',
-  pinCode: ''
+  pinCode: '',
+  coOwner1Name: '',
+  coOwner1Mobile: '',
+  coOwner2Name: '',
+  coOwner2Mobile: ''
 })
 
 // State
@@ -399,7 +504,6 @@ let toastIdCounter = 0
 const showToast = (message: string, type: 'success' | 'error' = 'success') => {
   const id = ++toastIdCounter
   toasts.value.push({ id, message, type })
-  
   setTimeout(() => {
     removeToast(id)
   }, 5000)
@@ -416,7 +520,6 @@ const removeToast = (id: number) => {
 const enableEdit = () => {
   console.log('🔓 Enabling edit mode...')
   isEditing.value = true
-  // Backup original data
   Object.assign(originalData, formData)
   showToast('Edit mode enabled. Make your changes and click Save.', 'success')
 }
@@ -424,7 +527,6 @@ const enableEdit = () => {
 // Cancel edit
 const cancelEdit = () => {
   console.log('❌ Canceling edit...')
-  // Restore original data
   Object.assign(formData, originalData)
   isEditing.value = false
   showToast('Changes cancelled', 'success')
@@ -439,22 +541,23 @@ const fetchOwnerProfile = async () => {
     
     if (response.success && response.data) {
       console.log('✅ Profile data received:', response.data)
-      
-      // Populate form
       formData.title = response.data.title || ''
       formData.ownerName = response.data.ownerName || ''
       formData.mobileNumber = response.data.mobileNumber || ''
       formData.emailId = response.data.emailId || ''
+      formData.propertyTaxNumber = response.data.propertyTaxNumber || ''
       formData.zone = response.data.zone || ''
       formData.ward = response.data.ward || ''
       formData.streetName = response.data.streetName || ''
       formData.doorNo = response.data.doorNo || ''
       formData.locality = response.data.locality || ''
       formData.pinCode = response.data.pinCode || ''
+      formData.coOwner1Name = response.data.coOwner1Name || ''
+      formData.coOwner1Mobile = response.data.coOwner1Mobile || ''
+      formData.coOwner2Name = response.data.coOwner2Name || ''
+      formData.coOwner2Mobile = response.data.coOwner2Mobile || ''
       
-      // Backup
       Object.assign(originalData, formData)
-      
       console.log('✅ Form populated:', formData)
     } else {
       showToast(response.message || 'No profile data found', 'error')
@@ -471,7 +574,6 @@ const fetchOwnerProfile = async () => {
 const saveProfile = async () => {
   console.log('💾 Saving profile...', formData)
   
-  // Validation
   if (!formData.ownerName || formData.ownerName.trim() === '') {
     showToast('Owner name is required', 'error')
     return
@@ -502,6 +604,17 @@ const saveProfile = async () => {
     return
   }
 
+  // Validate co-owner mobiles if provided
+  if (formData.coOwner1Mobile && formData.coOwner1Mobile.length > 0 && formData.coOwner1Mobile.length !== 10) {
+    showToast('Co-Owner 1 mobile number must be 10 digits', 'error')
+    return
+  }
+
+  if (formData.coOwner2Mobile && formData.coOwner2Mobile.length > 0 && formData.coOwner2Mobile.length !== 10) {
+    showToast('Co-Owner 2 mobile number must be 10 digits', 'error')
+    return
+  }
+
   submitting.value = true
   
   try {
@@ -511,21 +624,15 @@ const saveProfile = async () => {
     console.log('📥 Response received:', response)
     
     if (response.success) {
-      showToast('✅ Profile updated successfully!', 'success')
-      
-      // Update backup
+      showToast('Profile updated successfully!', 'success')
       Object.assign(originalData, formData)
-      
-      // Exit edit mode
       isEditing.value = false
-      
-      // Reload profile
       await fetchOwnerProfile()
     } else {
       showToast(response.message || 'Failed to update profile', 'error')
     }
   } catch (error: any) {
-    console.error('❌ Error updating profile:', error)
+    console.error('Error updating profile:', error)
     const errorMessage = error.response?.data?.message || error.message || 'Failed to update profile'
     showToast(errorMessage, 'error')
   } finally {
@@ -535,7 +642,7 @@ const saveProfile = async () => {
 
 // Load on mount
 onMounted(() => {
-  console.log('🚀 Component mounted, loading profile...')
+  console.log('Component mounted, loading profile...')
   fetchOwnerProfile()
 })
 </script>
@@ -544,20 +651,20 @@ onMounted(() => {
 .card-header.bg-primary {
   background: linear-gradient(135deg, #1e1e2d 0%, #2d2d3f 100%) !important;
   padding: 1.25rem 1.5rem;
+  position: relative;
+  z-index: 10; 
 }
 
 .card-header.bg-primary .card-title {
   color: #ffffff !important;
 }
 
-.form-control.bg-light,
-.form-select.bg-light {
+.form-control.bg-light, .form-select.bg-light {
   background-color: #f5f8fa !important;
   cursor: not-allowed;
 }
 
-.form-control:not(.bg-light):focus,
-.form-select:not(.bg-light):focus {
+.form-control:not(.bg-light):focus, .form-select:not(.bg-light):focus {
   border-color: #009ef7;
   box-shadow: 0 0 0 0.2rem rgba(0, 158, 247, 0.25);
 }
@@ -572,40 +679,39 @@ onMounted(() => {
   color: #01579b;
 }
 
-/* Pet Images */
 .pet-images-header {
-  padding: 1.5rem 0 1rem 0;
+  padding: 0;
   position: relative;
-  display: flex;
-  justify-content: center;
+  height: 120px; 
+  overflow: hidden;
+  pointer-events: none; 
 }
 
 .pet-images-container {
   display: flex;
-  justify-content: center;
-  gap: 50%;
+  justify-content: space-between;
   width: 100%;
+  height: 100%;
   position: relative;
 }
 
 .cat-wrapper {
   position: absolute;
-  left: 0;
+  left: 20px;
   bottom: 0;
 }
 
 .dog-wrapper {
   position: absolute;
-  right: 0;
+  right: 20px;
   bottom: 0;
 }
 
 .pet-header-image {
-  max-width: 180px;
+  max-width: 150px; 
   width: 100%;
   height: auto;
   transition: transform 0.3s ease;
-  margin-inline: 560px;
 }
 
 .cat-image {
@@ -648,8 +754,8 @@ onMounted(() => {
 }
 
 .rotating-spinner {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   animation: rotate 1.5s linear infinite;
 }
 
@@ -660,7 +766,10 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .pet-header-image {
-    max-width: 120px;
+    max-width: 90px;
+  }
+  .pet-images-header {
+    height: 80px;
   }
 }
 </style>

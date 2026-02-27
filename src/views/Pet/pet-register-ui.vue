@@ -742,8 +742,8 @@ const clearForm = () => {
 
 /* Rotating Spinner Animation */
 .rotating-spinner {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   animation: rotate 1.5s linear infinite;
 }
 

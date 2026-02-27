@@ -69,11 +69,11 @@
     <div class="registration-card">
       <!-- Logo -->
       <div class="logo-section">
-        <!-- <img 
+        <img 
           src="/Tambaram_Corporation_new_logo.jpg" 
           alt="Tambaram Corporation Logo" 
           class="corporation-logo"
-        /> -->
+        />
         <h2 class="corporation-name">THE COMMISIONER AVADI CITY MUNICIPAL CORPORATION</h2>
       </div>
 
@@ -108,7 +108,8 @@
 
         <!-- Links -->
         <div class="form-links">
-          <a href="#" class="link-text" @click.prevent="forgotPassword">Forgot PIN?</a>
+          <a href="#" class="link-text" @click.prevent="forgotPassword"></a>
+          <!-- <a href="#" class="link-text" @click.prevent="forgotPassword">Forgot PIN?</a> -->
           <a href="#" class="link-text" @click.prevent="newUser">New User</a>
         </div>
         

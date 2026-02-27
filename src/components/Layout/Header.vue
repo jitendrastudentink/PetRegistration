@@ -145,7 +145,6 @@
                       <div class="d-flex flex-column">
                         <div class="fw-bold d-flex align-items-center fs-5">
                           {{ userFullName }}
-                          <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                         </div>
                         <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ userEmail }}</a>
                       </div>
@@ -226,9 +225,9 @@ let hideTimeout: any = null
 // Computed properties for user info
 const userFullName = computed(() => {
   if (userData.value) {
-    const firstName = userData.value.first_name || userData.value.firstName || ''
-    const lastName = userData.value.last_name || userData.value.lastName || ''
-    return `${firstName} ${lastName}`.trim() || ''
+    return userData.value.name || 
+           `${userData.value.first_name || ''} ${userData.value.last_name || ''}`.trim() || 
+           'User'
   }
   return 'User'
 })
@@ -246,7 +245,6 @@ const loadUserData = () => {
     const userStr = sessionStorage.getItem('userData')
     if (userStr) {
       userData.value = JSON.parse(userStr)
-      console.log('User data loaded:', userData.value)
     }
   } catch (error) {
     console.error('Error loading user data:', error)

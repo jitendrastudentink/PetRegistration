@@ -220,6 +220,16 @@ class ApiService {
       throw error;
     }
   }
+   async getCertificatePreview(petId) {
+    try {
+      const response = await this.get(`/certificate/${petId}/preview`);
+      return response;
+    } catch (error) {
+      console.error('Failed to fetch certificate preview:', error);
+      throw error;
+    }
+  }
+  
 }
 
 
