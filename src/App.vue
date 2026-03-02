@@ -28,9 +28,12 @@
               <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
                 <!--begin::Page title-->
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-                  <!--begin::Title-->
-                  <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">{{ pageTitle }}</h1>
-                  <!--end::Title-->
+                  <!--begin::Title with inline logo-->
+                  <div class="d-flex align-items-center gap-2">
+                    <img alt="Logo" src="/public/logo_main.png" class="h-30px" />
+                    <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">{{ pageTitle }}</h1>
+                  </div>
+                  <!--end::Title with inline logo-->
                   <!--begin::Breadcrumb-->
                   <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
@@ -100,9 +103,7 @@ import Footer from './components/Layout/Footer.vue'
 
 const route = useRoute()
 
-// Check if current route should have blank layout (no header/footer/sidebar)
 const isBlankLayout = computed(() => {
-  // Routes that should NOT have layout
   const blankRoutes = [
     '/login', 
     '/register', 
@@ -122,7 +123,6 @@ const pageTitle = computed(() => {
     const routeName = route.name.toString()
     const titleMap: Record<string, string> = {
       'dashboard': 'Dashboard',
- 
     }
     
     return titleMap[routeName] || formatRouteName(routeName)
@@ -138,7 +138,6 @@ const formatRouteName = (name: string): string => {
     .join(' ')
 }
 
-// Clean up body classes on route change
 watch(() => route.path, (newPath) => {
   const blankLayoutPaths = [
     '/login', 
@@ -154,7 +153,6 @@ watch(() => route.path, (newPath) => {
 })
 
 onMounted(() => {
-  // Initialize Scrolltop only for non-blank layouts
   if (!isBlankLayout.value) {
     setTimeout(() => {
       if ((window as any).KTScrolltop) {
@@ -181,7 +179,6 @@ onMounted(() => {
   min-height: 100vh;
 }
 
-/* Ensure proper body attributes for app-sidebar layout */
 body {
   --kt-app-layout: dark-sidebar;
   --kt-app-header-fixed: true;
@@ -194,7 +191,6 @@ body {
   --kt-app-toolbar-enabled: true;
 }
 
-/* Sidebar minimize state */
 body.app-sidebar-minimize .app-sidebar {
   width: 75px;
 }
