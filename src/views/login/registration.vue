@@ -229,12 +229,12 @@
 
             <div class="form-row two-cols">
               <div class="form-group">
-                <label class="form-label">Enter 6-Digit OTP (6 இலக்க OTP ஐ உள்ளிடவும்) <span class="required">*</span></label>
+                <label class="form-label">Enter 6-Digit  (6 இலக்க  ஐ உள்ளிடவும்) <span class="required">*</span></label>
                 <input v-model="form.otp" type="text" class="form-control" placeholder="Enter OTP" pattern="[0-9]{6}" maxlength="6" required />
-                <small class="form-hint">Enter 6-digit OTP</small>
+                <small class="form-hint">Enter 6-digit </small>
               </div>
               <div class="form-group">
-                <label class="form-label">Confirm OTP (OTP ஐ உறுதிப்படுத்தவும்) <span class="required">*</span></label>
+                <label class="form-label">Confirm  ( ஐ உறுதிப்படுத்தவும்) <span class="required">*</span></label>
                 <input v-model="form.confirmOtp" type="text" class="form-control" placeholder="Confirm OTP" pattern="[0-9]{6}" maxlength="6" required />
               </div>
             </div>
