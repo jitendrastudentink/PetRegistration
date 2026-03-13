@@ -76,10 +76,6 @@
               <span class="card-label fw-bold text-gray-800">Pet Details List</span>
             </h3>
             <div class="card-toolbar">
-              <!-- <button class="btn btn-sm btn-primary me-2" @click="openSlider()">
-                <i class="ki-duotone ki-plus fs-2"></i>
-                <span class="d-none d-sm-inline">Add Pet</span>
-              </button> -->
               <button class="btn btn-sm btn-light-primary" @click="fetchData">
                 <i class="ki-duotone ki-arrows-circle fs-2">
                   <span class="path1"></span>
@@ -131,7 +127,7 @@
                     <td class="text-gray-600">{{ formatDate(item.registrationDate) }}</td>
                     <td class="text-center">
                       <button 
-                        v-if="item.currentStatus === 'Approved'"
+                        v-if="item.currentStatus === 'Approved' || item.currentStatus === 'Paid'"
                         class="btn btn-icon btn-bg-light btn-active-color-info btn-sm me-1"
                         @click="openCertificatePreview(item)"
                         title="Preview Certificate"
@@ -143,7 +139,7 @@
                         </i>
                       </button>
                       <button 
-                        v-if="item.currentStatus === 'Approved'"
+                        v-if="item.currentStatus === 'Approved' || item.currentStatus === 'Paid'"
                         class="btn btn-icon btn-bg-light btn-active-color-success btn-sm"
                         @click="downloadCertificate(item)"
                         title="Download Certificate"
@@ -153,7 +149,7 @@
                           <span class="path2"></span>
                         </i>
                       </button>
-                      <span v-if="item.currentStatus !== 'Approved'" class="text-muted fs-8">—</span>
+                      <span v-if="item.currentStatus !== 'Approved' && item.currentStatus !== 'Paid'" class="text-muted fs-8">—</span>
                     </td>
                     <td class="text-center">
                       <button 
@@ -167,29 +163,6 @@
                           <span class="path3"></span>
                         </i>
                       </button>
-                      <!-- <button 
-                        class="btn btn-icon btn-bg-light btn-active-color-warning btn-sm me-1"
-                        @click="editItem(item)"
-                        title="Edit"
-                      >
-                        <i class="ki-duotone ki-pencil fs-2">
-                          <span class="path1"></span>
-                          <span class="path2"></span>
-                        </i> 
-                      </button> -->
-                      <!-- <button 
-                        class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
-                        @click="deleteItem(item.id)"
-                        title="Delete"
-                      >
-                        <i class="ki-duotone ki-trash fs-2">
-                          <span class="path1"></span>
-                          <span class="path2"></span>
-                          <span class="path3"></span>
-                          <span class="path4"></span>
-                          <span class="path5"></span>
-                        </i>
-                      </button> -->
                     </td>
                   </tr>
                   <tr v-if="items.length === 0">
@@ -257,7 +230,7 @@
                   </div>
 
                   <!-- Quick Actions -->
-                  <div class="d-flex gap-2 mb-3" v-if="item.currentStatus === 'Approved'">
+                  <div class="d-flex gap-2 mb-3" v-if="item.currentStatus === 'Approved' || item.currentStatus === 'Paid'">
                     <button 
                       class="btn btn-sm btn-light-info flex-fill"
                       @click="openCertificatePreview(item)"
@@ -486,7 +459,7 @@
     </div>
   </div>
 
-  <!-- Side Slider (unchanged) -->
+  <!-- Side Slider -->
   <div 
     v-if="sliderOpen" 
     class="slider-overlay"
@@ -638,7 +611,8 @@
               required
             >
               <option value="">Select Status</option>
-              <option value="Pending">Pending</option>
+              <option value="Submitted">Submitted</option>
+              <option value="Paid">Paid</option>
               <option value="Approved">Approved</option>
               <option value="Rejected">Rejected</option>
               <option value="Under Review">Under Review</option>
@@ -725,6 +699,7 @@
       </div>
     </div>
   </div>
+
   <!-- Certificate Preview Modal -->
   <CertificatePreview
     :showModal="certificateModalOpen"
@@ -783,7 +758,7 @@ const formData = reactive({
   petName: '',
   petId: '',
   petType: '',
-  currentStatus: 'Pending',
+  currentStatus: 'Submitted',
   rejectedReason: '',
   officialRemark: '',
   registrationDate: '',
@@ -831,7 +806,6 @@ const totalDogs = computed(() => items.value.filter(pet => {
 const showToast = (message: string, type: 'success' | 'error' = 'success') => {
   const id = ++toastIdCounter
   toasts.value.push({ id, message, type })
-  
   setTimeout(() => {
     removeToast(id)
   }, 4000)
@@ -846,7 +820,6 @@ const removeToast = (id: number) => {
 
 const getImageUrl = (path: string) => {
   if (!path || path === '-') return ''
-  // Adjust this base URL to match your Laravel storage path
   return `http://localhost:9000/storage/${path}`
 }
 
@@ -863,11 +836,9 @@ const closeImageModal = () => {
 const viewItemDetails = (item: PetItem) => {
   selectedItem.value = item
   
-  // Organize fields into categories
   if (item.allDetails) {
     const details = item.allDetails
     
-    // Owner Fields
     selectedItem.value.ownerFields = [
       { key: 'title', label: 'Title', value: details.title?.value },
       { key: 'owner_name', label: 'Owner Name', value: details.owner_name?.value },
@@ -881,7 +852,6 @@ const viewItemDetails = (item: PetItem) => {
       { key: 'pin_code', label: 'PIN Code', value: details.pin_code?.value },
     ]
     
-    // Pet Fields
     selectedItem.value.petFields = [
       { key: 'pet_name', label: 'Pet Name', value: details.pet_name?.value },
       { key: 'species', label: 'Species', value: details.species?.value },
@@ -895,7 +865,6 @@ const viewItemDetails = (item: PetItem) => {
       { key: 'whether_the_pet_is_adopted_from_street', label: 'Adopted from Street', value: details.whether_the_pet_is_adopted_from_street?.value },
     ]
     
-    // Medical/Vaccination Fields
     selectedItem.value.medicalFields = [
       { key: 'whether_anti_rabies_vaccination_arv_is_administered_to_the_dog', label: 'Anti-Rabies Vaccination', value: details.whether_anti_rabies_vaccination_arv_is_administered_to_the_dog?.value },
       { key: 'if_yes_arv_administered_date', label: 'ARV Date', value: details.if_yes_arv_administered_date?.value },
@@ -904,7 +873,6 @@ const viewItemDetails = (item: PetItem) => {
       { key: 'previous_license_no_from_tcmc_if_any_tcmc', label: 'Previous License No', value: details.previous_license_no_from_tcmc_if_any_tcmc?.value },
     ]
     
-    // Veterinary Fields
     selectedItem.value.vetFields = [
       { key: 'in_case_treated_in_government_veterinary_dispensary_mention_name', label: 'Govt. Vet Dispensary', value: details.in_case_treated_in_government_veterinary_dispensary_mention_name?.value },
       { key: 'name_of_the_veterinary_doctor_treating_the_pet', label: 'Veterinary Doctor Name', value: details.name_of_the_veterinary_doctor_treating_the_pet?.value },
@@ -932,12 +900,15 @@ const transformApiData = (apiData: any): PetItem => {
     petType = 'cat'
   }
 
-  // Map backend is_form_status to display status
-  const rawStatus = apiData.is_form_status || ''
-  let currentStatus = 'Pending'
-  if (rawStatus === 'paid') {
-    currentStatus = 'Approved'
-  } else if (rawStatus === 'completed') {
+  // ✅ FIXED: Map API status directly — no wrong fallback to 'Pending'
+  const rawStatus = apiData.application_status || ''
+  let currentStatus = rawStatus // fallback: show as-is
+
+  if (rawStatus === 'submit') {
+    currentStatus = 'Submitted'
+  } else if (rawStatus === 'paid') {
+    currentStatus = 'Paid'
+  } else if (rawStatus === 'approved') {
     currentStatus = 'Approved'
   } else if (rawStatus === 'rejected') {
     currentStatus = 'Rejected'
@@ -972,18 +943,21 @@ const transformApiData = (apiData: any): PetItem => {
   }
 }
 
+// ✅ FIXED: All 3 statuses + extras with correct badge colors
 const getStatusClass = (status: string) => {
   switch(status) {
+    case 'Submitted':
+      return 'badge-light-warning'    // 🟡 Yellow
+    case 'Paid':
+      return 'badge-light-info'       // 🔵 Blue
     case 'Approved':
-      return 'badge-light-success'
+      return 'badge-light-success'    // 🟢 Green
     case 'Rejected':
-      return 'badge-light-danger'
-    case 'Pending':
-      return 'badge-light-warning'
+      return 'badge-light-danger'     // 🔴 Red
     case 'Under Review':
-      return 'badge-light-info'
+      return 'badge-light-primary'    // 🔷 Primary Blue
     default:
-      return 'badge-light-secondary'
+      return 'badge-light-secondary'  // ⚫ Grey
   }
 }
 
@@ -1032,7 +1006,7 @@ const closeCertificatePreview = () => {
 }
 
 const downloadCertificate = (item: PetItem) => {
-  if (item.currentStatus !== 'Approved') {
+  if (item.currentStatus !== 'Approved' && item.currentStatus !== 'Paid') {
     showToast('Certificate is only available after payment is completed', 'error')
     return
   }
@@ -1119,9 +1093,7 @@ const deleteItem = async (id: number) => {
     cancelButtonText: 'Cancel',
   })
 
-  if (!result.isConfirmed) {
-    return
-  }
+  if (!result.isConfirmed) return
 
   const index = items.value.findIndex(item => item.id === id)
   if (index !== -1) {
@@ -1163,7 +1135,7 @@ const resetForm = () => {
   formData.petName = ''
   formData.petId = ''
   formData.petType = ''
-  formData.currentStatus = 'Pending'
+  formData.currentStatus = 'Submitted'
   formData.rejectedReason = ''
   formData.officialRemark = ''
   formData.registrationDate = ''
@@ -1432,12 +1404,8 @@ body.app-sidebar-minimize .app-container {
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .pet-icons-container-dual {
