@@ -131,6 +131,7 @@
                     <td class="text-gray-600">{{ formatDate(item.registrationDate) }}</td>
                     <td class="text-center">
                       <button 
+                        v-if="item.currentStatus === 'Approved'"
                         class="btn btn-icon btn-bg-light btn-active-color-info btn-sm me-1"
                         @click="openCertificatePreview(item)"
                         title="Preview Certificate"
@@ -142,16 +143,17 @@
                         </i>
                       </button>
                       <button 
+                        v-if="item.currentStatus === 'Approved'"
                         class="btn btn-icon btn-bg-light btn-active-color-success btn-sm"
                         @click="downloadCertificate(item)"
                         title="Download Certificate"
-                        :disabled="item.currentStatus !== 'Approved'"
                       >
                         <i class="ki-duotone ki-file-down fs-2">
                           <span class="path1"></span>
                           <span class="path2"></span>
                         </i>
                       </button>
+                      <span v-if="item.currentStatus !== 'Approved'" class="text-muted fs-8">—</span>
                     </td>
                     <td class="text-center">
                       <button 
@@ -255,7 +257,7 @@
                   </div>
 
                   <!-- Quick Actions -->
-                  <div class="d-flex gap-2 mb-3">
+                  <div class="d-flex gap-2 mb-3" v-if="item.currentStatus === 'Approved'">
                     <button 
                       class="btn btn-sm btn-light-info flex-fill"
                       @click="openCertificatePreview(item)"
@@ -270,7 +272,6 @@
                     <button 
                       class="btn btn-sm btn-light-success flex-fill"
                       @click="downloadCertificate(item)"
-                      :disabled="item.currentStatus !== 'Approved'"
                     >
                       <i class="ki-duotone ki-file-down fs-4 me-1">
                         <span class="path1"></span>
@@ -930,6 +931,20 @@ const transformApiData = (apiData: any): PetItem => {
   } else if (species.includes('feline') || species.includes('cat')) {
     petType = 'cat'
   }
+
+  // Map backend is_form_status to display status
+  // const rawStatus = apiData.is_form_status || ''
+  const rawStatus = apiData.application_status || ''
+  let currentStatus = 'Pending'
+  if (rawStatus === 'paid') {
+    currentStatus = 'Approved'
+  } else if (rawStatus === 'completed') {
+    currentStatus = 'Approved'
+  } else if (rawStatus === 'rejected') {
+    currentStatus = 'Rejected'
+  } else if (rawStatus === 'under_review' || rawStatus === 'review') {
+    currentStatus = 'Under Review'
+  }
   
   return {
     id: apiData.student_id,
@@ -938,7 +953,7 @@ const transformApiData = (apiData: any): PetItem => {
     petName: details.pet_name?.value || '-',
     petId: `PID${apiData.student_id}`,
     petType: petType,
-    currentStatus: 'Pending',
+    currentStatus,
     rejectedReason: null,
     officialRemark: null,
     registrationDate: apiData.registration_date || new Date().toISOString(),
@@ -1019,7 +1034,7 @@ const closeCertificatePreview = () => {
 
 const downloadCertificate = (item: PetItem) => {
   if (item.currentStatus !== 'Approved') {
-    showToast('Certificate only available for approved pets', 'error')
+    showToast('Certificate is only available after payment is completed', 'error')
     return
   }
   showToast(`Downloading certificate for ${item.petName}...`, 'success')

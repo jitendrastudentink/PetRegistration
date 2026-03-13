@@ -101,7 +101,7 @@
             v-model="form.password"
             :type="showPassword ? 'text' : 'password'"
             class="form-control"
-            placeholder="Password (OTP)"
+            placeholder="Password"
             required
           />
         </div>
