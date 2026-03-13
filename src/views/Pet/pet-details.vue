@@ -933,7 +933,8 @@ const transformApiData = (apiData: any): PetItem => {
   }
 
   // Map backend is_form_status to display status
-  const rawStatus = apiData.is_form_status || ''
+  // const rawStatus = apiData.is_form_status || ''
+  const rawStatus = apiData.application_status || ''
   let currentStatus = 'Pending'
   if (rawStatus === 'paid') {
     currentStatus = 'Approved'
