@@ -153,11 +153,7 @@
             <div class="form-row three-cols">
               <div class="form-group">
                 <label class="form-label">Street Name (தெரு பெயர்)</label>
-                <select v-model="form.streetName" class="form-control">
-                  <option value="" disabled>Please select zone and ward</option>
-                  <option value="138/52b varadharajan street">138/52b varadharajan street</option>
-                  <option value="242 vinayagar kovil street mellanathur thiruvallur">242 vinayagar kovil street mellanathur thiruvallur</option>
-                </select>
+                <input v-model="form.streetName" type="text" class="form-control" placeholder="Enter street name" />
               </div>
               <div class="form-group">
                 <label class="form-label">Door No (கதவு எண்)</label>
@@ -176,7 +172,7 @@
                 <input v-model="form.pinCode" type="text" class="form-control" placeholder="PIN Code" pattern="[0-9]{6}" maxlength="6" />
               </div>
               <div class="form-group">
-                <label class="form-label">Property Tax Number (சொத்து வரி எண்)</label>
+                <label class="form-label">Property Tax Number (சொத்து வரி எண்)  <span class="required">*</span></label>
                 <input v-model="form.propertyTaxNumber" type="text" class="form-control" placeholder="Property Tax Number" />
               </div>
             </div>
